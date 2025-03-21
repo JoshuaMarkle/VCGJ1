@@ -1724,7 +1724,6 @@ MonoBehaviour:
   topSpeed: 20
   maxSteerAngle: 30
   steerSpeed: 2
-  debugVecLength: 0.05
   torqueCurve:
     serializedVersion: 2
     m_Curve:
@@ -1782,6 +1781,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  debugVecLength: 0.05
 --- !u!65 &1859528924
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2284,30 +2284,29 @@ MonoBehaviour:
   rearWheelDrive: 1
   restLength: 0.4
   springStrength: 1000
-  dampingStrength: 10
+  dampingStrength: 50
   maxSlipSpeed: 1000
-  lateralFrictionMultiplier: 2
+  lateralFrictionMultiplier: 1
   driveForce: 100
   brakeForce: 10
   topSpeed: 15
   maxSteerAngle: 15
   steerSpeed: 2
-  debugVecLength: 0.05
   torqueCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.0071431794
-      value: 0.016042888
-      inSlope: 2.624937
-      outSlope: 2.624937
+      time: 0
+      value: 0.5
+      inSlope: -0.09208409
+      outSlope: -0.09208409
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.37257716
+      outWeight: 0.5778783
     - serializedVersion: 3
-      time: 0.5104878
-      value: 1.0009831
+      time: 0.4
+      value: 1
       inSlope: -0.003947698
       outSlope: -0.003947698
       tangentMode: 0
@@ -2315,13 +2314,22 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.5087432
     - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -2.1272993
-      outSlope: -2.1272993
+      time: 0.6
+      value: 1
+      inSlope: -0.00006201703
+      outSlope: -0.00006201703
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.39884207
+      inWeight: 0.33333334
+      outWeight: 0.5294055
+    - serializedVersion: 3
+      time: 1
+      value: 0.3
+      inSlope: -0.07238198
+      outSlope: -0.07238198
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.39999118
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -2330,26 +2338,45 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.002380371
-      value: 0.9982147
-      inSlope: -3.3455257
-      outSlope: -3.3455257
-      tangentMode: 0
+      time: 0.0047505787
+      value: 0.661922
+      inSlope: -0.36549398
+      outSlope: -0.36549398
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.07637287
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -0.16830422
-      outSlope: -0.16830422
+      time: 0.27318594
+      value: 0.56381047
+      inSlope: -0.720653
+      outSlope: -0.720653
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.30787572
+      inWeight: 0.33333334
+      outWeight: 0.96637887
+    - serializedVersion: 3
+      time: 0.44168952
+      value: 0.24319455
+      inSlope: -0.41819578
+      outSlope: -0.41819578
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.44542158
+    - serializedVersion: 3
+      time: 1
+      value: 0.1
+      inSlope: -0.030180812
+      outSlope: -0.030180812
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.523096
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  debugVecLength: 0.05
 --- !u!54 &3029836246143379525
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2584,7 +2611,7 @@ GameObject:
   - component: {fileID: 3514309505788075647}
   - component: {fileID: 6305584711852478619}
   m_Layer: 0
-  m_Name: Renderer
+  m_Name: Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
