@@ -36,10 +36,17 @@ public class Player : MonoBehaviour
     public AnimationCurve torqueCurve = AnimationCurve.Linear(0, 1, 1, 1);
     public AnimationCurve tractionCurve = AnimationCurve.EaseInOut(0, 1, 0.2f, 1);
 
+    [Header("Particles")]
+    public Gradient trailGradient;
+    public TrailRenderer[] wheelTrails;
+    public ParticleSystem[] wheelSmokes;
+
     [Header("Debug")]
     public float debugVecLength = 0.5f;
 
     private Vector2 moveInput;
+	private bool recover;
+
     private Transform[] wheels;
 
     void Awake() {
@@ -51,11 +58,20 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.centerOfMass = new Vector3(0, -0.5f, 0);
         wheels = new Transform[] { frontLeft, frontRight, rearLeft, rearRight };
+        trailGradient = new Gradient();
+
+        wheelTrails = new TrailRenderer[wheels.Length];
+        wheelSmokes = new ParticleSystem[wheels.Length];
+
+        for (int i = 0; i < wheels.Length; i++) {
+            wheelTrails[i] = wheels[i].GetComponentInChildren<TrailRenderer>();
+            wheelSmokes[i] = wheels[i].GetComponentInChildren<ParticleSystem>();
+        }
     }
 
     void Update() {
 
-		// Get input
+		// Get move input
         moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
 		// Turn the wheels
@@ -63,23 +79,32 @@ public class Player : MonoBehaviour
             Quaternion.Lerp(frontLeft.localRotation,
                             Quaternion.Euler(0, maxSteerAngle * moveInput.x, 0),
                             Time.deltaTime * steerSpeed);
+
+		// Recover car
+		recover = Input.GetKeyDown(KeyCode.R);
+		if (recover)
+			RecoverIfFlipped();
     }
 
     void FixedUpdate() {
 
-		// Add Suspension + Friction
-        foreach (Transform wheel in wheels) {
+        // Update wheels
+        for (int i = 0; i < wheels.Length; i++) {
+            Transform wheel = wheels[i];
             ApplySuspension(wheel);
             ApplyLateralFriction(wheel);
+
+            // Effects
+            HandleDriftEffects(wheel, wheelTrails[i], wheelSmokes[i]);
         }
 
-		// Front wheel drive
+        // Front wheel drive
         if (frontWheelDrive) {
             ApplyDriveForce(frontLeft);
             ApplyDriveForce(frontRight);
         }
 
-		// Rear wheel drive
+        // Rear wheel drive
         if (rearWheelDrive) {
             ApplyDriveForce(rearLeft);
             ApplyDriveForce(rearRight);
@@ -121,7 +146,7 @@ public class Player : MonoBehaviour
 
 	// Drive Forward
     void ApplyDriveForce(Transform wheel) {
-		
+
 		// Calculate drive force
         Vector3 forward = wheel.forward;
         float speedPercent = Mathf.Clamp01(Vector3.Dot(rb.linearVelocity, forward) / topSpeed);
@@ -136,6 +161,64 @@ public class Player : MonoBehaviour
             Vector3 brake = -forward * Vector3.Dot(rb.linearVelocity, forward) * brakeForce;
             rb.AddForceAtPosition(brake, wheel.position);
             Debug.DrawRay(wheel.position, brake * debugVecLength, Color.cyan);
+        }
+    }
+
+	// Flip car back over
+	public void RecoverIfFlipped() {
+		// Check if the car is upside down
+		if (Vector3.Dot(transform.up, Vector3.up) < 0.1f && rb.linearVelocity.magnitude < 1f)
+		{
+			// Reset rotation: keep yaw (Y axis) but reset pitch and roll
+			Vector3 euler = transform.eulerAngles;
+			transform.rotation = Quaternion.Euler(0, euler.y, 0);
+
+			// Slightly raise the car to prevent collision with the ground
+			transform.position += Vector3.up * 1.5f;
+
+			// Reset velocity
+			rb.linearVelocity = Vector3.zero;
+			rb.angularVelocity = Vector3.zero;
+		}
+	}
+
+    // Drift Particles
+    private void HandleDriftEffects(Transform wheel, TrailRenderer trail, ParticleSystem smoke)
+    {
+        Vector3 velocity = rb.GetPointVelocity(wheel.position);
+        float lateralSpeed = Vector3.Dot(velocity, wheel.right);
+
+        float slipPercent = Mathf.Clamp01(Mathf.Abs(lateralSpeed) / maxSlipSpeed);
+
+        // Enable trail and smoke only when drifting significantly
+        bool isDrifting = slipPercent > 0.3f;
+
+        // Trail logic
+        if (trail != null)
+        {
+            if (isDrifting && !trail.emitting)
+                trail.emitting = true;
+            else if (!isDrifting && trail.emitting)
+                trail.emitting = false;
+
+            // Set trail alpha based on drift amount
+            trailGradient.SetKeys(
+                new GradientColorKey[] { new GradientColorKey(Color.white, 0.0f) },
+                new GradientAlphaKey[] { new GradientAlphaKey(slipPercent, 0.0f), new GradientAlphaKey(0, 1.0f) }
+            );
+            trail.colorGradient = trailGradient;
+        }
+
+        // Smoke logic
+        if (smoke != null)
+        {
+            var emission = smoke.emission;
+            emission.rateOverTime = slipPercent * 50f;
+
+            if (isDrifting && !smoke.isPlaying)
+                smoke.Play();
+            else if (!isDrifting && smoke.isPlaying)
+                smoke.Stop();
         }
     }
 }
