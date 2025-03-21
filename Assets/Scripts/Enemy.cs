@@ -1,8 +1,13 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class CarController : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
+    [Header("Target")]
+    public Transform player;
+    public float predictionTime = 0.5f;
+	public float reverseDistance = 5.0f;
+
     [Header("Car Settings")]
     public float moveSpeed = 1500f;
     public float maxSpeed = 100f;
@@ -10,7 +15,7 @@ public class CarController : MonoBehaviour
     public float brakeForce = 3000f;
     public Transform centerOfMass;
 
-    [Header("SFX")]
+    [Header("Engine Sound")]
     public AudioSource engineSound;
     public float minEnginePitch = 0.8f;
     public float maxEnginePitch = 2f;
@@ -21,23 +26,64 @@ public class CarController : MonoBehaviour
     public Wheel rearLeftWheel;
     public Wheel rearRightWheel;
 
+    [Header("AI Timing")]
+    public float reverseDecisionCooldown = 1f;
+
     private Rigidbody rb;
     private float steerInput;
     private float throttleInput;
+    private float reverseDecisionTimer = 0f;
+    private bool reversing = false;
 
-    private void Start()
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
         if (centerOfMass) rb.centerOfMass = centerOfMass.localPosition;
     }
 
-    private void Update()
+    void Update()
     {
-        // Input
-        steerInput = Input.GetAxis("Horizontal");
-        throttleInput = Input.GetAxis("Vertical");
+        if (player == null) return;
 
-        // Update visuals and drift on each wheel
+        Vector3 playerVelocity = player.GetComponent<Rigidbody>()?.linearVelocity ?? Vector3.zero;
+        Vector3 predictedPlayerPosition = player.position + playerVelocity * predictionTime;
+
+        Vector3 dirToTarget = (predictedPlayerPosition - transform.position).normalized;
+        float distanceToTarget = Vector3.Distance(transform.position, predictedPlayerPosition);
+        float dot = Vector3.Dot(transform.forward, dirToTarget);
+        float angleToTarget = Vector3.SignedAngle(transform.forward, dirToTarget, Vector3.up);
+
+        // Update reverse decision cooldown
+        reverseDecisionTimer -= Time.deltaTime;
+
+        // Steering input
+        steerInput = Mathf.Clamp(angleToTarget / 45f, -1f, 1f);
+
+        // Decide forward or reverse
+        if (reverseDecisionTimer <= 0f)
+        {
+            // Only flip direction after cooldown
+            if (dot < 0.1f && distanceToTarget > reverseDistance)
+            {
+                reversing = true;
+            }
+            else
+            {
+                reversing = false;
+            }
+
+            reverseDecisionTimer = reverseDecisionCooldown;
+        }
+
+        throttleInput = reversing ? -1f : 1f;
+
+        // Smart braking
+        if (distanceToTarget < 20f && GetSpeed() > 15f)
+        {
+            throttleInput = -1f;
+        }
+
+        // Update wheels
         UpdateWheel(frontLeftWheel);
         UpdateWheel(frontRightWheel);
         UpdateWheel(rearLeftWheel);
@@ -46,7 +92,7 @@ public class CarController : MonoBehaviour
         UpdateEngineSound();
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         float steer = steerInput * maxSteerAngle;
         float currentSpeedKph = rb.linearVelocity.magnitude * 3.6f;
@@ -56,11 +102,9 @@ public class CarController : MonoBehaviour
             ? throttleInput * moveSpeed
             : 0f;
 
-        // Steer front wheels
         frontLeftWheel.ApplySteering(steer);
         frontRightWheel.ApplySteering(steer);
 
-        // Drive or brake rear wheels
         if (isAccelerating)
         {
             rearLeftWheel.ApplyThrottle(torque);
@@ -73,13 +117,18 @@ public class CarController : MonoBehaviour
         }
     }
 
-    private void UpdateWheel(Wheel wheel)
+    void UpdateWheel(Wheel wheel)
     {
         wheel.UpdateVisual();
         wheel.UpdateDrift();
     }
 
-    private void UpdateEngineSound()
+    float GetSpeed()
+    {
+        return rb.linearVelocity.magnitude * 3.6f;
+    }
+
+    void UpdateEngineSound()
     {
         float speedPercent = rb.linearVelocity.magnitude / 100f;
         float throttleEffect = Mathf.Abs(throttleInput);
