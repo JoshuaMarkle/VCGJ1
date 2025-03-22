@@ -1,94 +1,217 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
+using System.Collections;
 
 public class UI : MonoBehaviour
 {
-    [Header("Menus")]
-    public GameObject pauseMenu;
-    public GameObject optionsMenu;
+	public static UI Instance;
 
-    [Header("Options UI")]
-    public Toggle fullscreenToggle;
-    public Slider musicVolumeSlider;
-    public Slider sfxVolumeSlider;
+	[Header("Menus")]
+	public GameObject mainMenu;
+	public GameObject pauseMenu;
+	public GameObject optionsMenu;
 
-    private bool paused = false;
+	[Header("Options UI")]
+	public Slider musicVolumeSlider;
+	public Slider sfxVolumeSlider;
 
-    private void Start() {
-        // Load saved settings
-        fullscreenToggle.isOn = Screen.fullScreen;
-        musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
-        sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1f);
+	[Header("HUD")]
+	public TMP_Text cashText;
+	public TMP_Text pizzaText;
+	public TMP_Text policeStarsText;
+	public Slider hungerSlider;
 
-        // Add event listeners
-        fullscreenToggle.onValueChanged.AddListener(SetFullscreen);
-        musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume);
-        sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
+	[Header("Fade Panel")]
+	public GameObject panel;
+	private CanvasGroup panelGroup;
+	public float fadeTime = 1f;
 
-        // Ensure menus start hidden
-        pauseMenu.SetActive(false);
-        optionsMenu.SetActive(false);
-    }
+	private bool paused = false;
 
-    // Toggle pause menu
-    public void TogglePauseMenu()
-    {
-        paused = !paused;
+	private void Awake()
+	{
+		if (Instance == null) Instance = this;
+		else Destroy(gameObject);
+	}
 
-		// Pause/Resume
-        if (paused) {
-            Time.timeScale = 0f;
-            pauseMenu.SetActive(true);
-        } else {
-            ResumeGame();
-        }
-    }
+	private void Start()
+	{
+		// Fade panel setup
+		if (panel != null)
+		{
+			panelGroup = panel.GetComponent<CanvasGroup>();
+			if (panelGroup == null)
+			{
+				panelGroup = panel.AddComponent<CanvasGroup>();
+			}
+			panelGroup.alpha = 1f;
+			panel.SetActive(true);
+			StartCoroutine(FadeIn());
+		}
 
-    // Resume the game
-    public void ResumeGame()
-    {
-        paused = false;
-        Time.timeScale = 1f;
-        pauseMenu.SetActive(false);
-    }
+		// Load saved settings
+		if (musicVolumeSlider != null)
+		{
+			musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
+			musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume);
+		}
 
-    // Open options menu
-    public void OpenOptionsMenu() {
-        pauseMenu.SetActive(false);
-        optionsMenu.SetActive(true);
-    }
+		if (sfxVolumeSlider != null)
+		{
+			sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1f);
+			sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
+		}
 
-    // Close options menu (back to pause menu)
-    public void OpenPauseMenu()
-    {
-        optionsMenu.SetActive(false);
-        pauseMenu.SetActive(true);
-    }
+		if (mainMenu != null) mainMenu.SetActive(true);
+		if (pauseMenu != null) pauseMenu.SetActive(false);
+		if (optionsMenu != null) optionsMenu.SetActive(false);
 
-    // Exit the game
-    public void ExitGame() {
-        Application.Quit();
-    }
+		UpdateHUD();
+	}
 
-    // Set Fullscreen Mode
-    public void SetFullscreen(bool isFullscreen) {
-        Screen.fullScreen = isFullscreen;
-        PlayerPrefs.SetInt("Fullscreen", isFullscreen ? 1 : 0);
-        PlayerPrefs.Save();
-    }
 
-    // Set Music Volume
-    public void SetMusicVolume(float volume) {
-        if (MusicManager.Instance != null) {
-            MusicManager.Instance.SetMusicVolume(volume);
-        }
-    }
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			TogglePauseMenu();
+		}
 
-    // Set SFX Volume
-    public void SetSFXVolume(float volume) {
-        if (MusicManager.Instance != null) {
-            MusicManager.Instance.SetSFXVolume(volume);
-        }
-    }
+		UpdateHUD();
+	}
+
+
+	public void TogglePauseMenu()
+	{
+		paused = !paused;
+
+		if (paused)
+		{
+			Time.timeScale = 0f;
+			if (pauseMenu != null) pauseMenu.SetActive(true);
+		}
+		else
+		{
+			ResumeGame();
+		}
+	}
+
+	public void ResumeGame()
+	{
+		paused = false;
+		Time.timeScale = 1f;
+		if (pauseMenu != null) pauseMenu.SetActive(false);
+	}
+
+	public void OpenOptionsMenu()
+	{
+		if (mainMenu != null) mainMenu.SetActive(false);
+		if (pauseMenu != null) pauseMenu.SetActive(false);
+		if (pauseMenu != null) pauseMenu.SetActive(false);
+		if (optionsMenu != null) optionsMenu.SetActive(true);
+	}
+
+	public void OpenPauseMenu()
+	{
+		if (mainMenu != null) mainMenu.SetActive(false);
+		if (optionsMenu != null) optionsMenu.SetActive(false);
+		if (pauseMenu != null) pauseMenu.SetActive(true);
+	}
+
+	public void OpenMainMenu()
+	{
+		if (mainMenu != null) mainMenu.SetActive(true);
+		if (optionsMenu != null) optionsMenu.SetActive(false);
+		if (pauseMenu != null) pauseMenu.SetActive(false);
+	}
+
+	public void UpdateHUD()
+	{
+		if (GameMaster.Instance == null) return;
+
+		if (cashText != null)
+			cashText.text = $"${GameMaster.Instance.cash}";
+
+		if (pizzaText != null)
+			pizzaText.text = $"P{GameMaster.Instance.pizzasInCar}";
+
+		if (policeStarsText != null)
+			policeStarsText.text = new string('g', GameMaster.Instance.policeStars);
+
+		if (hungerSlider != null)
+			hungerSlider.value = GameMaster.Instance.playerHunger;
+	}
+
+	public IEnumerator FadeIn()
+	{
+		if (panel == null || panelGroup == null) yield break;
+
+		float timer = 0f;
+		panel.SetActive(true);
+		while (timer < fadeTime)
+		{
+			timer += Time.deltaTime;
+			panelGroup.alpha = 1f - (timer / fadeTime);
+			yield return null;
+		}
+		panelGroup.alpha = 0f;
+		panel.SetActive(false);
+	}
+
+	public IEnumerator FadeOut()
+	{
+		if (panel == null || panelGroup == null) yield break;
+
+		panel.SetActive(true);
+		float timer = 0f;
+		while (timer < fadeTime)
+		{
+			timer += Time.deltaTime;
+			panelGroup.alpha = timer / fadeTime;
+			yield return null;
+		}
+		panelGroup.alpha = 1f;
+	}
+
+	public void ExitGame()
+	{
+		Application.Quit();
+	}
+
+	public void ToggleFullscreen()
+	{
+		bool isFullscreen = !Screen.fullScreen;
+		Screen.fullScreen = isFullscreen;
+		PlayerPrefs.SetInt("Fullscreen", isFullscreen ? 1 : 0);
+		PlayerPrefs.Save();
+	}
+
+	public void SetMusicVolume(float volume)
+	{
+		if (MusicManager.Instance != null)
+		{
+			MusicManager.Instance.SetMusicVolume(volume);
+		}
+	}
+
+	public void SetSFXVolume(float volume)
+	{
+		if (MusicManager.Instance != null)
+		{
+			MusicManager.Instance.SetSFXVolume(volume);
+		}
+	}
+
+	public void LoadScene(string sceneName)
+	{
+		StartCoroutine(FadeOutAndLoadScene(sceneName));
+	}
+
+	private IEnumerator FadeOutAndLoadScene(string sceneName)
+	{
+		yield return StartCoroutine(FadeOut());
+		SceneManager.LoadScene(sceneName);
+	}
 }

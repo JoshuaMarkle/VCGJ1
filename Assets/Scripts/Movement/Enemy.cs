@@ -18,7 +18,6 @@ public class Enemy : MonoBehaviour
     public Transform centerOfMass;
 
     [Header("Engine Sound")]
-    public AudioSource engineSound;
     public float minEnginePitch = 0.8f;
     public float maxEnginePitch = 2f;
 
@@ -55,6 +54,9 @@ public class Enemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         if (centerOfMass) rb.centerOfMass = centerOfMass.localPosition;
+
+		if (!player)
+			player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()
@@ -93,7 +95,6 @@ public class Enemy : MonoBehaviour
 			}
 
 			UpdateAllWheels();
-			UpdateEngineSound();
 			return;
 		}
 		else if (IsObstacleAhead())
@@ -108,7 +109,6 @@ public class Enemy : MonoBehaviour
 			steerInput = avoidSteerDirection;
 
 			UpdateAllWheels();
-			UpdateEngineSound();
 			return;
 		}
 
@@ -156,7 +156,6 @@ public class Enemy : MonoBehaviour
 
         // Update wheels + engine
         UpdateAllWheels();
-        UpdateEngineSound();
     }
 
     void FixedUpdate()
@@ -201,16 +200,6 @@ public class Enemy : MonoBehaviour
     float GetSpeed()
     {
         return rb.linearVelocity.magnitude * 3.6f;
-    }
-
-    void UpdateEngineSound()
-    {
-        float speedPercent = rb.linearVelocity.magnitude / 100f;
-        float throttleEffect = Mathf.Abs(throttleInput);
-
-        float targetPitch = Mathf.Lerp(minEnginePitch, maxEnginePitch, throttleEffect + speedPercent);
-        engineSound.pitch = Mathf.Lerp(engineSound.pitch, targetPitch, Time.deltaTime * 5f);
-        engineSound.volume = Mathf.Clamp01(throttleEffect + speedPercent);
     }
 
 	bool IsObstacleAhead()

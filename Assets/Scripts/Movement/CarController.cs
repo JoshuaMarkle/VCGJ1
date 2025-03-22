@@ -14,6 +14,8 @@ public class CarController : MonoBehaviour
     public AudioSource engineSound;
     public float minEnginePitch = 0.8f;
     public float maxEnginePitch = 2f;
+	public float engineVolMin = 0.1f;
+	public float engineVolMax = 0.5f;
 
     [Header("Wheels")]
     public Wheel frontLeftWheel;
@@ -86,6 +88,8 @@ public class CarController : MonoBehaviour
 
         float targetPitch = Mathf.Lerp(minEnginePitch, maxEnginePitch, throttleEffect + speedPercent);
         engineSound.pitch = Mathf.Lerp(engineSound.pitch, targetPitch, Time.deltaTime * 5f);
-        engineSound.volume = Mathf.Clamp01(throttleEffect + speedPercent);
+
+		float targetVolume = Mathf.Lerp(engineVolMin, engineVolMax, throttleEffect + speedPercent);
+		engineSound.volume = Mathf.Lerp(engineSound.volume, targetVolume, Time.deltaTime * 5f);
     }
 }

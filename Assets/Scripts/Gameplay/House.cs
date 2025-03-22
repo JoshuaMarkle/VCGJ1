@@ -82,23 +82,18 @@ public class House : MonoBehaviour
         areaInstance.Rotate(Vector3.up, spinSpeed * Time.deltaTime, Space.Self);
     }
 
-    private void CompleteDelivery()
-    {
-        if (GameMaster.instance.pizzasInCar > 0)
-        {
-            GameMaster.instance.pizzasInCar--;
-            GameMaster.instance.cash += 20; // reward amount
-            Debug.Log("✅ Delivery complete!");
-            Deactivate();
-
-            // Optional: automatically assign next one
-            GameMaster.instance.AssignRandomDelivery();
-        }
-        else
-        {
-            Debug.Log("🚫 No pizza to deliver.");
-        }
-    }
+	private void CompleteDelivery()
+	{
+		if (GameMaster.Instance.pizzasInCar > 0)
+		{
+			GameMaster.Instance.OnSuccessfulDelivery();
+			Deactivate();
+		}
+		else
+		{
+			Debug.Log("🚫 No pizza to deliver.");
+		}
+	}
 
     private void OnDrawGizmosSelected()
     {

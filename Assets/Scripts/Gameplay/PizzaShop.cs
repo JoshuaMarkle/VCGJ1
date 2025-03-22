@@ -13,6 +13,9 @@ public class PizzaShop : MonoBehaviour
     public float pulseAmount = 0.1f;
 	public float spinSpeed = 5f;
 
+	[Header("Audio")]
+	public AudioClip boughtPizzaSound;
+
     private float playerStayTimer = 0f;
     private Transform player;
     private Vector3 baseScale;
@@ -68,15 +71,11 @@ public class PizzaShop : MonoBehaviour
 
     private void TryBuyPizza()
     {
-        if (GameMaster.instance.cash >= pizzaPrice)
+        if (GameMaster.Instance.cash >= pizzaPrice)
         {
-            GameMaster.instance.cash -= pizzaPrice;
-            GameMaster.instance.pizzasInCar++;
-            Debug.Log("🍕 Bought a pizza!");
-        }
-        else
-        {
-            Debug.Log("💸 Not enough cash to buy a pizza.");
+            GameMaster.Instance.cash -= pizzaPrice;
+            GameMaster.Instance.pizzasInCar++;
+			MusicManager.Instance.PlaySFX(boughtPizzaSound);
         }
     }
 
