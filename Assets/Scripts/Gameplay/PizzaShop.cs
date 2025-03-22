@@ -64,8 +64,6 @@ public class PizzaShop : MonoBehaviour
         areaSprite.localScale = baseScale + Vector3.one * scaleOffset;
 
 		areaSprite.Rotate(Vector3.up, spinSpeed * Time.deltaTime, Space.Self);
-
-		Debug.Log("Yes I rotated");
     }
 
     private void TryBuyPizza()

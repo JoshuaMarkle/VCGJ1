@@ -13,8 +13,6 @@ public class Wheel : MonoBehaviour
     public float driftSlipThreshold = 0.2f;
     public float smokeRateMultiplier = 300f;
 
-    private int driftIndex = -1;
-
     public void ApplySteering(float steerAngle)
     {
         if (isSteeringWheel)
