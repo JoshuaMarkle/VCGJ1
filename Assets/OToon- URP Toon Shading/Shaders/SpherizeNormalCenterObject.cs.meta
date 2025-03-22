@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: f1fb07553a2a8d74ea19800d1bddfc25
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 216102
+  packageName: OToon - URP Toon Shading
+  packageVersion: 1.7.0
+  assetPath: Assets/OToon- URP Toon Shading/Shaders/SpherizeNormalCenterObject.cs
+  uploadId: 641917

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: d1a93c28ac8499445a1b69887608f317
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 216102
+  packageName: OToon - URP Toon Shading
+  packageVersion: 1.7.0
+  assetPath: Assets/OToon- URP Toon Shading/Shaders/Editor/AssetSingleton.cs
+  uploadId: 641917

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a51acd333b7c6a546a3c8b1db9e94df4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 216102
+  packageName: OToon - URP Toon Shading
+  packageVersion: 1.7.0
+  assetPath: Assets/OToon- URP Toon Shading/Shaders/Editor/LegacyGradientDataTransferWizard.cs
+  uploadId: 641917

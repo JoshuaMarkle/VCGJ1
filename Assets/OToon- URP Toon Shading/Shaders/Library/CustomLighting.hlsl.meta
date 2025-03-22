@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: e66589404f19f9d48bad7750193ed137
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 216102
+  packageName: OToon - URP Toon Shading
+  packageVersion: 1.7.0
+  assetPath: Assets/OToon- URP Toon Shading/Shaders/Library/CustomLighting.hlsl
+  uploadId: 641917

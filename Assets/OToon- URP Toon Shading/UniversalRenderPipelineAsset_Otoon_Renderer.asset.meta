@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 55def139fcfc84047b4e1da1b6abcace
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 216102
+  packageName: OToon - URP Toon Shading
+  packageVersion: 1.7.0
+  assetPath: Assets/OToon- URP Toon Shading/UniversalRenderPipelineAsset_Otoon_Renderer.asset
+  uploadId: 641917
