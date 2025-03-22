@@ -4,11 +4,18 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private Rigidbody rb;
+    private Rigidbody playerRb;
 
     [Header("Target")]
     public Transform player;
     public float predictionTime = 0.5f;
     public float reverseDistance = 5.0f;
+	public float catchDistance = 1.0f;
+	public float catchTime = 1.0f;
+	public float minPlayerCatchSpeed = 2.0f;
+
+	private float catchTimer = 0f;
+	private bool hasCaughtPlayer = false;
 
     [Header("Car Settings")]
     public float moveSpeed = 1500f;
@@ -26,6 +33,15 @@ public class Enemy : MonoBehaviour
     public Wheel frontRightWheel;
     public Wheel rearLeftWheel;
     public Wheel rearRightWheel;
+
+	[Header("Stabilization Settings")]
+	public float downForce = 1000f;
+	public float flipTorque = 500f;
+	public float flipDetectionAngle = 120f;
+	public float timeToAutoFlip = 2f;
+	public float autoFlipTorque = 10000f;
+	public float autoFlipUpForce = 10000f;
+	private float flippedTimer = 0f;
 
     [Header("Reverse Logic")]
     public float reverseDecisionCooldown = 1f;
@@ -57,14 +73,32 @@ public class Enemy : MonoBehaviour
 
 		if (!player)
 			player = GameObject.FindGameObjectWithTag("Player").transform;
+		playerRb = player.GetComponent<Rigidbody>();
     }
 
     void Update()
     {
         if (player == null) return;
 
-        Vector3 playerVelocity = player.GetComponent<Rigidbody>()?.linearVelocity ?? Vector3.zero;
+        Vector3 playerVelocity = playerRb.linearVelocity;
         Vector3 predictedPlayerPosition = player.position + playerVelocity * predictionTime;
+
+		// Catch player logic
+        float distanceToTarget = Vector3.Distance(transform.position, predictedPlayerPosition);
+		if (!hasCaughtPlayer && distanceToTarget <= catchDistance && playerRb.linearVelocity.magnitude < minPlayerCatchSpeed)
+		{
+			catchTimer += Time.deltaTime;
+
+			if (catchTimer >= catchTime)
+			{
+				hasCaughtPlayer = true;
+				GameMaster.Instance?.CatchPlayer();
+			}
+		}
+		else
+		{
+			catchTimer = 0f; // reset if player moves out of range
+		}
 
         // Boid-style separation
         Vector3 separationForce = Vector3.zero;
@@ -79,7 +113,6 @@ public class Enemy : MonoBehaviour
             if (distance > 0f)
                 separationForce += toSelf.normalized / distance;
         }
-
 
 		// Obstacle avoidance check
 		if (isAvoidingObstacle)
@@ -116,7 +149,6 @@ public class Enemy : MonoBehaviour
         Vector3 dirToTarget = (predictedPlayerPosition - transform.position).normalized;
         Vector3 combinedDirection = (dirToTarget + separationForce * separationStrength).normalized;
 
-        float distanceToTarget = Vector3.Distance(transform.position, predictedPlayerPosition);
         float dot = Vector3.Dot(transform.forward, combinedDirection);
         float angleToTarget = Vector3.SignedAngle(transform.forward, combinedDirection, Vector3.up);
 
@@ -181,6 +213,9 @@ public class Enemy : MonoBehaviour
             rearLeftWheel.ApplyBrake(brakeForce);
             rearRightWheel.ApplyBrake(brakeForce);
         }
+
+		// Stabilize
+		ApplyStabilization();
     }
 
 	void UpdateAllWheels()
@@ -231,5 +266,35 @@ public class Enemy : MonoBehaviour
 		Vector3 right = Quaternion.AngleAxis(30, Vector3.up) * forward;
 		Gizmos.DrawLine(leftRayPos.position, leftRayPos.position + left * detectionDistance * 0.8f);
 		Gizmos.DrawLine(rightRayPos.position, rightRayPos.position + right * detectionDistance * 0.8f);
+	}
+
+	private void ApplyStabilization()
+	{
+		// Downforce
+		Vector3 force = -transform.up * downForce * rb.linearVelocity.magnitude;
+		rb.AddForce(force);
+
+		// Check angle between car up and world up
+		float angle = Vector3.Angle(Vector3.up, transform.up);
+
+		if (angle > flipDetectionAngle)
+		{
+			flippedTimer += Time.fixedDeltaTime;
+
+			// Passive flip assistance while upside down
+			Vector3 flipDirection = Vector3.Cross(transform.up, Vector3.up);
+			rb.AddTorque(flipDirection * flipTorque);
+
+			// Stronger flip if stuck upside down for too long
+			if (flippedTimer >= timeToAutoFlip)
+			{
+				rb.AddTorque(transform.right * autoFlipTorque);
+				rb.AddForce(Vector3.up * autoFlipUpForce);
+			}
+		}
+		else
+		{
+			flippedTimer = 0f; // Reset if not flipped
+		}
 	}
 }

@@ -7,12 +7,16 @@ public class GameMaster : MonoBehaviour
 
     public Transform player;
 
+	[Header("Game State")]
+	public bool playerAlive = true;
+
     [Header("Player Stats")]
-    public float playerHunger = 100f;
     public int cash = 0;
     public int pizzasInCar = 0;
     public int policeStars = 0;
-    public float hungerDrainRate = 5f; // per minute
+	public float maxHunger = 1f;
+    public float hunger = 1f;
+    public float hungerDrainRate = 1f; // per minute
 
     [Header("Deliveries")]
     public List<House> allHouses = new List<House>();
@@ -24,7 +28,9 @@ public class GameMaster : MonoBehaviour
     public float policeSpawnDistance = 60f;
 
     [Header("Audio")]
+    public AudioClip eatPizzaSound;
     public AudioClip deliveredPizzaSound;
+    public AudioClip diedSound;
 
     private void Awake()
     {
@@ -46,6 +52,14 @@ public class GameMaster : MonoBehaviour
         if (allHouses.Count == 0)
             Debug.LogWarning("GameMaster: No House scripts found in the scene!");
 
+		hunger = maxHunger;
+
+        AssignRandomDelivery();
+    }
+
+    public void Restart()
+    {
+		hunger = maxHunger;
         AssignRandomDelivery();
     }
 
@@ -53,12 +67,23 @@ public class GameMaster : MonoBehaviour
     {
         HandleHunger(Time.deltaTime);
         UI.Instance?.UpdateHUD(); // Keep UI updated
+
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			EatPizza();
+		}
     }
 
     private void HandleHunger(float deltaTime)
     {
         float hungerLoss = hungerDrainRate / 60f * deltaTime;
-        playerHunger = Mathf.Clamp(playerHunger - hungerLoss, 0f, 100f);
+        hunger -= hungerLoss;
+
+		// Player died of hunger
+		if (playerAlive && hunger < 0) {
+			playerAlive = false;
+			MusicManager.Instance.PlaySFX(diedSound);
+			UI.Instance?.ShowGameOverScreen("Died of Hunger lol");
+		}
     }
 
     public void AssignRandomDelivery()
@@ -107,4 +132,21 @@ public class GameMaster : MonoBehaviour
 
         GameObject cop = Instantiate(policePrefab, spawnPos, Quaternion.identity);
     }
+
+	private void EatPizza() {
+		if (pizzasInCar > 0) {
+			MusicManager.Instance.PlaySFX(eatPizzaSound);
+			pizzasInCar--;
+			hunger = maxHunger;
+		}
+	}
+
+	public void CatchPlayer()
+	{
+		if (!playerAlive) return;
+
+		playerAlive = false;
+		MusicManager.Instance.PlaySFX(diedSound);
+		UI.Instance?.ShowGameOverScreen("The Police Took You Pizza!");
+	}
 }

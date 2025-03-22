@@ -12,6 +12,7 @@ public class UI : MonoBehaviour
 	public GameObject mainMenu;
 	public GameObject pauseMenu;
 	public GameObject optionsMenu;
+	public GameObject gameOverMenu;
 
 	[Header("Options UI")]
 	public Slider musicVolumeSlider;
@@ -23,11 +24,15 @@ public class UI : MonoBehaviour
 	public TMP_Text policeStarsText;
 	public Slider hungerSlider;
 
+	[Header("Game Over")]
+	public TMP_Text gameOverSubtitle;
+
 	[Header("Fade Panel")]
 	public GameObject panel;
 	private CanvasGroup panelGroup;
 	public float fadeTime = 1f;
 
+	private bool pausable = true;
 	private bool paused = false;
 
 	private void Awake()
@@ -67,6 +72,7 @@ public class UI : MonoBehaviour
 		if (mainMenu != null) mainMenu.SetActive(true);
 		if (pauseMenu != null) pauseMenu.SetActive(false);
 		if (optionsMenu != null) optionsMenu.SetActive(false);
+		if (gameOverMenu != null) gameOverMenu.SetActive(false);
 
 		UpdateHUD();
 	}
@@ -85,6 +91,8 @@ public class UI : MonoBehaviour
 
 	public void TogglePauseMenu()
 	{
+		if (!pausable) return;
+
 		paused = !paused;
 
 		if (paused)
@@ -141,7 +149,7 @@ public class UI : MonoBehaviour
 			policeStarsText.text = new string('g', GameMaster.Instance.policeStars);
 
 		if (hungerSlider != null)
-			hungerSlider.value = GameMaster.Instance.playerHunger;
+			hungerSlider.value = GameMaster.Instance.hunger;
 	}
 
 	public IEnumerator FadeIn()
@@ -213,5 +221,11 @@ public class UI : MonoBehaviour
 	{
 		yield return StartCoroutine(FadeOut());
 		SceneManager.LoadScene(sceneName);
+	}
+
+	public void ShowGameOverScreen(string subtitle) {
+		pausable = false;
+		if (gameOverMenu != null) gameOverMenu.SetActive(true);
+		gameOverSubtitle.text = subtitle;
 	}
 }

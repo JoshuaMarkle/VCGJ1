@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class MusicManager : MonoBehaviour
 {
@@ -13,12 +14,14 @@ public class MusicManager : MonoBehaviour
     [Header("Audio Clips")]
     public AudioClip defaultMusic;
 
+    [Header("Mixer")]
+    public AudioMixer audioMixer; // Drag your AudioMixer here in the inspector
+
     [Range(0f, 1f)] public float musicVolume = 1f;
     [Range(0f, 1f)] public float sfxVolume = 1f;
 
     private void Awake()
     {
-        // Create instance
         if (Instance == null) {
             Instance = this;
             DontDestroyOnLoad(gameObject);
@@ -27,50 +30,60 @@ public class MusicManager : MonoBehaviour
             return;
         }
 
-        // Load volume settings
+        // Load saved volume
         musicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
         sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 1f);
 
-        if (musicSource != null) {
-            musicSource.volume = musicVolume;
-            if (defaultMusic != null) {
-                PlayMusic(defaultMusic);
-            }
+        SetMusicVolume(musicVolume);
+        SetSFXVolume(sfxVolume);
+
+        if (musicSource != null && defaultMusic != null) {
+            PlayMusic(defaultMusic);
         }
     }
 
     // Play background music with fade
     public void PlayMusic(AudioClip newMusic, float fadeDuration = 2f)
     {
-		// Check if the song is the same
         if (musicSource.clip == newMusic) return;
-
         StartCoroutine(FadeMusic(newMusic, fadeDuration));
     }
 
-    // Stop background music
-    public void StopMusic() {
+    public void StopMusic()
+    {
         musicSource.Stop();
     }
 
-    // Adjust Music Volume
     public void SetMusicVolume(float volume)
     {
         musicVolume = volume;
-        musicSource.volume = volume;
         PlayerPrefs.SetFloat("MusicVolume", volume);
         PlayerPrefs.Save();
+
+        audioMixer.SetFloat("MusicVolume", Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20);
     }
 
-    // Smoothly fade music
+    public void SetSFXVolume(float volume)
+    {
+        sfxVolume = volume;
+        PlayerPrefs.SetFloat("SFXVolume", volume);
+        PlayerPrefs.Save();
+
+        audioMixer.SetFloat("SFXVolume", Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20);
+    }
+
     private IEnumerator FadeMusic(AudioClip newMusic, float duration)
     {
-        float startVolume = musicSource.volume;
+        float startVolume;
+        audioMixer.GetFloat("MusicVolume", out startVolume);
+        startVolume = Mathf.Pow(10f, startVolume / 20f); // convert dB back to 0–1
 
-        // Fade out
-        while (musicSource.volume > 0)
+        float t = 0f;
+        while (t < duration)
         {
-            musicSource.volume -= startVolume * Time.deltaTime / duration;
+            float volume = Mathf.Lerp(startVolume, 0f, t / duration);
+            audioMixer.SetFloat("MusicVolume", Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20);
+            t += Time.deltaTime;
             yield return null;
         }
 
@@ -78,33 +91,29 @@ public class MusicManager : MonoBehaviour
         musicSource.clip = newMusic;
         musicSource.Play();
 
-        // Fade in
-        while (musicSource.volume < musicVolume)
+        t = 0f;
+        while (t < duration)
         {
-            musicSource.volume += musicVolume * Time.deltaTime / duration;
+            float volume = Mathf.Lerp(0f, musicVolume, t / duration);
+            audioMixer.SetFloat("MusicVolume", Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20);
+            t += Time.deltaTime;
             yield return null;
         }
+
+        SetMusicVolume(musicVolume); // Ensure final value is applied
     }
 
-    // Play sound effect
     public void PlaySFX(AudioClip clip, float volume = 1f)
     {
         if (clip == null) return;
 
-		GameObject sfxObject = Instantiate(sfxPrefab);
+        GameObject sfxObject = Instantiate(sfxPrefab);
         AudioSource sfxSource = sfxObject.GetComponent<AudioSource>();
         sfxSource.clip = clip;
-        sfxSource.volume = volume * sfxVolume;
+        sfxSource.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SFX")[0];
+        sfxSource.volume = volume; // relative volume
         sfxSource.Play();
 
-		Destroy(sfxObject, clip.length);
-    }
-
-    // Adjust SFX Volume
-    public void SetSFXVolume(float volume)
-    {
-        sfxVolume = volume;
-        PlayerPrefs.SetFloat("SFXVolume", volume);
-        PlayerPrefs.Save();
+        Destroy(sfxObject, clip.length);
     }
 }

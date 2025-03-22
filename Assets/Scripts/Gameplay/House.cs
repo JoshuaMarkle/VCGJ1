@@ -89,10 +89,6 @@ public class House : MonoBehaviour
 			GameMaster.Instance.OnSuccessfulDelivery();
 			Deactivate();
 		}
-		else
-		{
-			Debug.Log("🚫 No pizza to deliver.");
-		}
 	}
 
     private void OnDrawGizmosSelected()

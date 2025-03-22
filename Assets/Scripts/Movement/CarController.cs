@@ -23,6 +23,15 @@ public class CarController : MonoBehaviour
     public Wheel rearLeftWheel;
     public Wheel rearRightWheel;
 
+	[Header("Stabilization Settings")]
+	public float downForce = 1000f;
+	public float flipTorque = 500f;
+	public float flipDetectionAngle = 120f;
+	public float timeToAutoFlip = 2f;
+	public float autoFlipTorque = 10000f;
+	public float autoFlipUpForce = 10000f;
+	private float flippedTimer = 0f;
+
     private Rigidbody rb;
     private float steerInput;
     private float throttleInput;
@@ -73,6 +82,9 @@ public class CarController : MonoBehaviour
             rearLeftWheel.ApplyBrake(brakeForce);
             rearRightWheel.ApplyBrake(brakeForce);
         }
+
+		// Stabilize
+		ApplyStabilization();
     }
 
     private void UpdateWheel(Wheel wheel)
@@ -92,4 +104,34 @@ public class CarController : MonoBehaviour
 		float targetVolume = Mathf.Lerp(engineVolMin, engineVolMax, throttleEffect + speedPercent);
 		engineSound.volume = Mathf.Lerp(engineSound.volume, targetVolume, Time.deltaTime * 5f);
     }
+
+	private void ApplyStabilization()
+	{
+		// Downforce
+		Vector3 force = -transform.up * downForce * rb.linearVelocity.magnitude;
+		rb.AddForce(force);
+
+		// Check angle between car up and world up
+		float angle = Vector3.Angle(Vector3.up, transform.up);
+
+		if (angle > flipDetectionAngle)
+		{
+			flippedTimer += Time.fixedDeltaTime;
+
+			// Passive flip assistance while upside down
+			Vector3 flipDirection = Vector3.Cross(transform.up, Vector3.up);
+			rb.AddTorque(flipDirection * flipTorque);
+
+			// Stronger flip if stuck upside down for too long
+			if (flippedTimer >= timeToAutoFlip)
+			{
+				rb.AddTorque(transform.right * autoFlipTorque);
+				rb.AddForce(Vector3.up * autoFlipUpForce);
+			}
+		}
+		else
+		{
+			flippedTimer = 0f; // Reset if not flipped
+		}
+	}
 }
