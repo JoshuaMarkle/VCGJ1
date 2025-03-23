@@ -80,7 +80,8 @@ public class GameMaster : MonoBehaviour
         if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Submit") || Input.GetMouseButtonDown(1))
             EatPizza();
 
-        HandleHunger(Time.deltaTime);
+		if (!startingPhase)
+			HandleHunger(Time.deltaTime);
         UI.Instance?.UpdateHUD();
 
         // -------------------------------

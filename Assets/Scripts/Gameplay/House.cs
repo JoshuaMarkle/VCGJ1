@@ -57,7 +57,7 @@ public class House : MonoBehaviour
         float distance = Vector3.Distance(transform.position, player.position);
 
         // If the player is within the delivery range, complete the delivery.
-        if (distance <= deliveryRange)
+        if (distance <= deliveryRange && GameMaster.Instance.pizzasInCar > 0)
         {
             CompleteDelivery();
         }
@@ -174,6 +174,7 @@ public class House : MonoBehaviour
             float normalizedTime = Mathf.Clamp01(deliveryTimer / maxDeliveryDuration);
             tip = Mathf.Lerp(maxTip, minTip, normalizedTime);
         }
+
         GameMaster.Instance.OnSuccessfulDelivery(tip);
         Deactivate();
     }
