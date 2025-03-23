@@ -23,6 +23,12 @@ public class GameMaster : MonoBehaviour
     private float orderTimer = 0f;
     private List<House> activeDeliveries = new List<House>();
 
+	[Header("Delivery Time Scaling")]
+	[Tooltip("Minimum time for any delivery regardless of distance")]
+	public float minDeliveryTime = 30f;
+	[Tooltip("How many seconds per meter of distance")]
+	public float deliveryTimePerMeter = 0.2f;
+
     [Header("Difficulty Settings")]
     // During gameplay phase, use gameplayTime to drive police star increases.
     public float difficultyStarThreshold = 30f;   // Every this many seconds of gameplay, add a star
@@ -120,17 +126,23 @@ public class GameMaster : MonoBehaviour
         // -------------------------------
         gameplayTime += Time.deltaTime;
 
-        // Increase police pressure based on gameplay time.
-        int targetStars = Mathf.FloorToInt(gameplayTime / difficultyStarThreshold);
-        if (targetStars > policeStars)
-        {
-            int diff = targetStars - policeStars;
-            policeStars = targetStars;
-            for (int i = 0; i < diff; i++)
-            {
-                SpawnPoliceUnit();
-            }
-        }
+		// Increase police pressure based on gameplay time.
+		int targetStars = Mathf.FloorToInt(gameplayTime / difficultyStarThreshold);
+		if (targetStars > policeStars)
+		{
+			int diff = targetStars - policeStars;
+			policeStars = targetStars;
+
+			for (int i = 0; i < diff; i++)
+			{
+				// Exponentially increase the number of units per star level
+				int numToSpawn = Mathf.FloorToInt(Mathf.Pow(2, policeStars - diff + i));
+				for (int j = 0; j < numToSpawn; j++)
+				{
+					SpawnPoliceUnit();
+				}
+			}
+		}
 
         // Spawn new orders if under the maximum.
         if (activeDeliveries.Count < maxOrders)
@@ -142,7 +154,7 @@ public class GameMaster : MonoBehaviour
 				if (newOrder != null)
 				{
 					float distanceToPlayer = Vector3.Distance(player.position, newOrder.transform.position);
-					float scaledTime = Mathf.Max(10f, distanceToPlayer * 0.1f); // 100m = 10s, minimum 10s
+					float scaledTime = Mathf.Max(minDeliveryTime, distanceToPlayer * deliveryTimePerMeter);
 					newOrder.maxDeliveryDuration = scaledTime;
 
 					activeDeliveries.Add(newOrder);
@@ -225,7 +237,7 @@ public class GameMaster : MonoBehaviour
         UI.Instance?.ShowGameOverScreen("Too slow! Failed to make your delivery");
     }
 
-    private void SpawnPoliceUnit()
+    public void SpawnPoliceUnit()
     {
         if (policePrefab == null || player == null) return;
         Vector3 randomDir = Random.onUnitSphere;

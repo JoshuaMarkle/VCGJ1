@@ -28,12 +28,16 @@ public class Enemy : MonoBehaviour
     public float moveSpeed = 1500f;
     public float maxSpeed = 100f;
     public float maxSteerAngle = 25f;
+    public float minSteerAngle = 5f; // New: for effective steering at high speeds
     public float brakeForce = 3000f;
     public Transform centerOfMass;
 
     [Header("Engine Sound")]
+    public AudioSource engineSound;
     public float minEnginePitch = 0.8f;
     public float maxEnginePitch = 2f;
+    public float engineVolMin = 0.1f;
+    public float engineVolMax = 0.5f;
 
     [Header("Wheels")]
     public Wheel frontLeftWheel;
@@ -50,6 +54,10 @@ public class Enemy : MonoBehaviour
     public float autoFlipUpForce = 10000f;
     private float flippedTimer = 0f;
 
+    [Header("Water Settings")]
+    public float waterYThreshold = -10f;
+    public AudioClip splashSound;
+
     [Header("Reverse Logic")]
     public float reverseDecisionCooldown = 1f;
     private float reverseDecisionTimer = 0f;
@@ -60,7 +68,7 @@ public class Enemy : MonoBehaviour
     public LayerMask enemyLayer;
 
     [Header("Obstacle Avoidance")]
-	public LayerMask obstacleLayer;
+    public LayerMask obstacleLayer;
     public Transform forwardRayPos, leftRayPos, rightRayPos;
     public float detectionDistance = 6f;
     public float avoidDuration = 1.5f;
@@ -95,6 +103,10 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         if (player == null) return;
+
+        // New: Update engine sound and check for water death
+        UpdateEngineSound();
+        CheckWaterDeath();
 
         // Get predicted player position
         Vector3 playerVelocity = playerRb.linearVelocity;
@@ -172,14 +184,12 @@ public class Enemy : MonoBehaviour
         float dot = Vector3.Dot(transform.forward, combinedDirection);
         float angleToTarget = Vector3.SignedAngle(transform.forward, combinedDirection, Vector3.up);
 
-        // --- New Decision Logic using PoliceDecision enum ---
-        // Basic decision: if target is behind (low dot) or too close, reverse; otherwise, chase forward.
+        // --- Decision Logic ---
         if (distanceToTarget <= reverseDistance || dot < 0.1f)
             currentDecision = PoliceDecision.Reversing;
         else
             currentDecision = PoliceDecision.ChasingForward;
 
-        // Check if the police car is stuck (low speed for a duration)
         if (rb.linearVelocity.magnitude < 2f)
         {
             stuckTimer += Time.deltaTime;
@@ -191,33 +201,29 @@ public class Enemy : MonoBehaviour
             stuckTimer = 0f;
         }
 
-        // Set inputs based on decision state:
-        if (currentDecision == PoliceDecision.ChasingForward)
-            throttleInput = 1f;  // full forward
-        else // Reversing or Stuck
-            throttleInput = -1f; // full reverse
+        // Set throttle based on decision state:
+        throttleInput = (currentDecision == PoliceDecision.ChasingForward) ? 1f : -1f;
 
-        // Steering input is based on angle difference (for both forward and reverse, reverse might invert steering)
+        // Steering input is determined by the angle to target.
         steerInput = Mathf.Clamp(angleToTarget / 45f, -1f, 1f);
         if (currentDecision == PoliceDecision.Reversing || currentDecision == PoliceDecision.Stuck)
-        {
-            // When reversing, flip steering to make the car turn appropriately.
             steerInput *= -1f;
-        }
 
-        // Update wheels with calculated inputs
         UpdateAllWheels();
     }
 
     void FixedUpdate()
     {
-        float steer = steerInput * maxSteerAngle;
         float currentSpeedKph = rb.linearVelocity.magnitude * 3.6f;
+        // Calculate effective steering angle: interpolates between maxSteerAngle and minSteerAngle.
+        float effectiveSteerAngle = Mathf.Lerp(maxSteerAngle, minSteerAngle, currentSpeedKph / maxSpeed);
+        float steer = steerInput * effectiveSteerAngle;
         bool isAccelerating = Mathf.Abs(throttleInput) > 0.05f;
         float torque = isAccelerating && currentSpeedKph < maxSpeed ? throttleInput * moveSpeed : 0f;
 
         frontLeftWheel.ApplySteering(steer);
         frontRightWheel.ApplySteering(steer);
+
         if (isAccelerating)
         {
             rearLeftWheel.ApplyThrottle(torque);
@@ -246,46 +252,25 @@ public class Enemy : MonoBehaviour
         wheel.UpdateDrift();
     }
 
-    float GetSpeed()
-    {
-        return rb.linearVelocity.magnitude * 3.6f;
-    }
-
     bool IsObstacleAhead()
     {
         Vector3 forward = transform.forward;
-
-        // Main ray from forwardRayPos
         if (Physics.Raycast(forwardRayPos.position, forward, detectionDistance, obstacleLayer))
             return true;
 
-        // Side rays from left and right positions
         Vector3 left = Quaternion.AngleAxis(-30, Vector3.up) * forward;
         Vector3 right = Quaternion.AngleAxis(30, Vector3.up) * forward;
-		if (Physics.Raycast(leftRayPos.position, left, detectionDistance * 0.8f, obstacleLayer)) return true;
-		if (Physics.Raycast(rightRayPos.position, right, detectionDistance * 0.8f, obstacleLayer)) return true;
+        if (Physics.Raycast(leftRayPos.position, left, detectionDistance * 0.8f, obstacleLayer)) return true;
+        if (Physics.Raycast(rightRayPos.position, right, detectionDistance * 0.8f, obstacleLayer)) return true;
 
         return false;
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Vector3 forward = transform.forward;
-        Gizmos.DrawLine(forwardRayPos.position, forwardRayPos.position + forward * detectionDistance);
-        Vector3 left = Quaternion.AngleAxis(-30, Vector3.up) * forward;
-        Vector3 right = Quaternion.AngleAxis(30, Vector3.up) * forward;
-        Gizmos.DrawLine(leftRayPos.position, leftRayPos.position + left * detectionDistance * 0.8f);
-        Gizmos.DrawLine(rightRayPos.position, rightRayPos.position + right * detectionDistance * 0.8f);
-    }
-
     private void ApplyStabilization()
     {
-        // Apply downforce proportional to speed
         Vector3 force = -transform.up * downForce * rb.linearVelocity.magnitude;
         rb.AddForce(force);
 
-        // Auto-flip if flipped too much
         float angle = Vector3.Angle(Vector3.up, transform.up);
         if (angle > flipDetectionAngle)
         {
@@ -301,6 +286,30 @@ public class Enemy : MonoBehaviour
         else
         {
             flippedTimer = 0f;
+        }
+    }
+
+    private void UpdateEngineSound()
+    {
+        float speedPercent = rb.linearVelocity.magnitude / 100f;
+        float throttleEffect = Mathf.Abs(throttleInput);
+        float targetPitch = Mathf.Lerp(minEnginePitch, maxEnginePitch, throttleEffect + speedPercent);
+        engineSound.pitch = Mathf.Lerp(engineSound.pitch, targetPitch, Time.deltaTime * 5f);
+
+        float targetVolume = Mathf.Lerp(engineVolMin, engineVolMax, throttleEffect + speedPercent);
+        engineSound.volume = Mathf.Lerp(engineSound.volume, targetVolume, Time.deltaTime * 5f);
+    }
+
+    private void CheckWaterDeath()
+    {
+        if (transform.position.y < waterYThreshold)
+        {
+            if (splashSound != null)
+                AudioSource.PlayClipAtPoint(splashSound, transform.position);
+            rb.linearVelocity = Vector3.zero;
+
+			GameMaster.Instance.SpawnPoliceUnit();
+			Destroy(gameObject);
         }
     }
 }
