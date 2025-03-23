@@ -6,7 +6,7 @@ public class GameMaster : MonoBehaviour
     public static GameMaster Instance;
 
     [Header("Player Stats")]
-    public float cash = 0f;             // Now tracking cents as well
+    public int cash = 10;             // Now tracking cents as well
     public int pizzasInCar = 0;
     public int policeStars = 0;
     public float maxHunger = 1f;
@@ -57,13 +57,7 @@ public class GameMaster : MonoBehaviour
             if (playerObj) player = playerObj.transform;
         }
 
-        // Automatically find all House scripts in the scene.
-        // (These houses will later be used for queued orders.)
-        // Note: Active houses are those that become “orders.”
-        activeDeliveries.Clear();
-        difficultyTime = 0f;
-        nextStarDifficulty = difficultyStarThreshold;
-        orderTimer = baseOrderInterval;
+		Restart();
     }
 
     private void Update()
@@ -71,6 +65,12 @@ public class GameMaster : MonoBehaviour
 		if (alive) Time.timeScale = 1;
 		else Time.timeScale = slowMoAmount;
 		Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+		// Input
+		// if (InputSystem.Instance.jumping || InputSystem.Instance.attacking)
+		// 	EatPizza();
+		if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Submit") || Input.GetMouseButtonDown(1))
+			EatPizza();
 
         // Increase difficulty over time.
         difficultyTime += Time.deltaTime * difficultyIncreaseRate;
@@ -137,7 +137,7 @@ public class GameMaster : MonoBehaviour
     public void OnSuccessfulDelivery(float tip)
     {
         MusicManager.Instance.PlaySFX(deliveredPizzaSound);
-        cash += tip;
+		cash += Mathf.CeilToInt(tip);
         pizzasInCar--;
 
         // Remove the delivered house from active orders.
@@ -201,5 +201,6 @@ public class GameMaster : MonoBehaviour
 		nextStarDifficulty = difficultyStarThreshold;
 		activeDeliveries.Clear();
 		alive = true;
+        orderTimer = baseOrderInterval;
 	}
 }

@@ -80,10 +80,13 @@ public class UI : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Escape))
-		{
+		// if (Input.GetKeyDown(KeyCode.Escape))
+		// {
+		// 	TogglePauseMenu();
+		// }
+
+		if (InputSystem.Instance.escape)
 			TogglePauseMenu();
-		}
 
 		UpdateHUD();
 	}

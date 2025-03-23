@@ -52,6 +52,8 @@ public class CarController : MonoBehaviour
         // Input
         steerInput = Input.GetAxis("Horizontal");
         throttleInput = Input.GetAxis("Vertical");
+		// steerInput = InputSystem.Instance.moveDir.x;
+		// throttleInput = InputSystem.Instance.moveDir.y;
 
         // Update visuals and drift on each wheel
         UpdateWheel(frontLeftWheel);
