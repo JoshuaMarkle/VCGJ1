@@ -8,10 +8,13 @@ public class PizzaShop : MonoBehaviour
     public int pizzaPrice = 10;
 
     [Header("Area Sprite")]
-    public Transform areaSprite;
+    public GameObject areaPrefab;
     public float pulseSpeed = 2f;
     public float pulseAmount = 0.1f;
 	public float spinSpeed = 5f;
+	public float areaScale = 1f;
+
+	private Transform areaTransform;
 
 	[Header("Audio")]
 	public AudioClip boughtPizzaSound;
@@ -27,11 +30,11 @@ public class PizzaShop : MonoBehaviour
         if (player == null)
             Debug.LogWarning("PizzaShop: No GameObject tagged 'Player' found.");
 
-        if (areaSprite != null)
+        if (areaPrefab != null)
         {
-            // Store base scale and scale it to match the buy range
-            baseScale = Vector3.one * buyRange * 2f;
-            areaSprite.localScale = baseScale;
+            areaTransform = Instantiate(areaPrefab, transform.position, Quaternion.identity, transform).transform;
+            baseScale = Vector3.one * buyRange * areaScale;
+            areaTransform.localScale = baseScale;
         }
     }
 
@@ -56,17 +59,17 @@ public class PizzaShop : MonoBehaviour
             playerStayTimer = 0f;
         }
 
-        UpdateAreaPulse();
+        UpdateArea();
     }
 
-    private void UpdateAreaPulse()
+    private void UpdateArea()
     {
-        if (areaSprite == null) return;
+        if (areaTransform == null) return;
 
         float scaleOffset = Mathf.Sin(Time.time * pulseSpeed) * pulseAmount;
-        areaSprite.localScale = baseScale + Vector3.one * scaleOffset;
+        areaTransform.localScale = baseScale + Vector3.one * scaleOffset;
 
-		areaSprite.Rotate(Vector3.up, spinSpeed * Time.deltaTime, Space.Self);
+		areaTransform.Rotate(Vector3.up, spinSpeed * Time.deltaTime, Space.Self);
     }
 
     private void TryBuyPizza()

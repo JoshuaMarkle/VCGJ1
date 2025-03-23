@@ -10,6 +10,8 @@ public class MusicManager : MonoBehaviour
     [Header("Audio Sources")]
     public AudioSource musicSource;
     public GameObject sfxPrefab;
+	public float musicBoost = 1f;
+	public float sfxBoost = 20f;
 
     [Header("Audio Clips")]
     public AudioClip defaultMusic;
@@ -60,7 +62,7 @@ public class MusicManager : MonoBehaviour
         PlayerPrefs.SetFloat("MusicVolume", volume);
         PlayerPrefs.Save();
 
-        audioMixer.SetFloat("MusicVolume", Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20);
+        audioMixer.SetFloat("MusicVolume", Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * musicBoost);
     }
 
     public void SetSFXVolume(float volume)
@@ -69,7 +71,7 @@ public class MusicManager : MonoBehaviour
         PlayerPrefs.SetFloat("SFXVolume", volume);
         PlayerPrefs.Save();
 
-        audioMixer.SetFloat("SFXVolume", Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20);
+        audioMixer.SetFloat("SFXVolume", Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * sfxBoost);
     }
 
     private IEnumerator FadeMusic(AudioClip newMusic, float duration)

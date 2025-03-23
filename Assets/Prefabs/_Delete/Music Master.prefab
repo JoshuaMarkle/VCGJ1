@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7092234209502558532}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -70.11332, y: -1.7096988, z: 15.515447}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -47,7 +47,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 8892870584756687729}
   sfxPrefab: {fileID: 8749348829333423132, guid: 2cd8ff88fee3b6548b1394685557193e, type: 3}
-  defaultMusic: {fileID: 0}
+  musicBoost: 20
+  sfxBoost: 20
+  defaultMusic: {fileID: 8300000, guid: 3cc67faaa7430fe4db319f5d509d3058, type: 3}
+  audioMixer: {fileID: 24100000, guid: 4ef97d2818708544999d2860eb0e9a1e, type: 2}
   musicVolume: 1
   sfxVolume: 1
 --- !u!82 &8892870584756687729
@@ -59,11 +62,11 @@ AudioSource:
   m_GameObject: {fileID: 7092234209502558532}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6548986766130546232, guid: 4ef97d2818708544999d2860eb0e9a1e, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0

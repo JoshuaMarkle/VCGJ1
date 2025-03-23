@@ -235,7 +235,7 @@ Transform:
   m_GameObject: {fileID: 953282154651854639}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.29, y: 1.05, z: 0.26}
+  m_LocalPosition: {x: 1.29, y: 1.05, z: 2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 3235742596329355880}
   - component: {fileID: 1677233121180031358}
   - component: {fileID: 5926113038111610205}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Grill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,13 +461,13 @@ MonoBehaviour:
   player: {fileID: 0}
   predictionTime: 1
   reverseDistance: 5
-  catchDistance: 6
-  catchTime: 3
-  minPlayerCatchSpeed: 2
-  moveSpeed: 3000
-  maxSpeed: 100
+  catchDistance: 7
+  catchTime: 2
+  minPlayerCatchSpeed: 5
+  moveSpeed: 10000
+  maxSpeed: 250
   maxSteerAngle: 30
-  brakeForce: 10000
+  brakeForce: 100000
   centerOfMass: {fileID: 7283391826550654819}
   minEnginePitch: 0.8
   maxEnginePitch: 2
@@ -475,7 +475,7 @@ MonoBehaviour:
   frontRightWheel: {fileID: 1259004584323842394}
   rearLeftWheel: {fileID: 1167958952418074164}
   rearRightWheel: {fileID: 6186183333693420748}
-  downForce: 1000
+  downForce: 2500
   flipTorque: 500
   flipDetectionAngle: 120
   timeToAutoFlip: 2
@@ -487,12 +487,17 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 384
   forwardRayPos: {fileID: 490994325059006746}
   leftRayPos: {fileID: 3945526479224952303}
   rightRayPos: {fileID: 2454385897968027778}
-  detectionDistance: 6
+  detectionDistance: 0.8
   avoidDuration: 1.5
   avoidSteerDirection: 1
+  pathUpdateInterval: 0.5
+  currentDecision: 0
 --- !u!1 &2238684236968825292
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,7 +562,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 1
     m_AsymptoteValue: 1
-    m_Stiffness: 3
+    m_Stiffness: 20
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -860,7 +865,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 1
     m_AsymptoteValue: 1
-    m_Stiffness: 4
+    m_Stiffness: 20
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -914,7 +919,7 @@ Transform:
   m_GameObject: {fileID: 4509830995323059399}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.29, y: 1.05, z: 0.26}
+  m_LocalPosition: {x: -1.29, y: 1.05, z: 2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1015,7 +1020,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 1
     m_AsymptoteValue: 1
-    m_Stiffness: 4
+    m_Stiffness: 20
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1108,7 +1113,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 1
     m_AsymptoteValue: 1
-    m_Stiffness: 3
+    m_Stiffness: 20
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1151,7 +1156,7 @@ GameObject:
   - component: {fileID: 2337586767729132115}
   - component: {fileID: 7259719438998803728}
   - component: {fileID: 409431960912429338}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -5,23 +5,28 @@ public class GameMaster : MonoBehaviour
 {
     public static GameMaster Instance;
 
-    public Transform player;
-
-	[Header("Game State")]
-	public bool playerAlive = true;
-
     [Header("Player Stats")]
-    public int cash = 0;
+    public float cash = 0f;             // Now tracking cents as well
     public int pizzasInCar = 0;
     public int policeStars = 0;
-	public float maxHunger = 1f;
+    public float maxHunger = 1f;
     public float hunger = 1f;
-    public float hungerDrainRate = 1f; // per minute
+    public float hungerDrainRate = 1f;    // per minute
+	public bool alive = true;
 
-    [Header("Deliveries")]
-    public List<House> allHouses = new List<House>();
-    public House currentDelivery;
-    private float deliveryStartTime;
+    [Header("Delivery Queue Settings")]
+    public int maxOrders = 5;                   // Maximum number of active orders
+    public float baseOrderInterval = 10f;         // Base time between new orders (seconds)
+    public float timeBetweenOrderVariance = 2f;   // +/- seconds variance
+    private float orderTimer = 0f;
+    private List<House> activeDeliveries = new List<House>();
+
+    [Header("Difficulty Settings")]
+    public float difficultyTime = 0f;             // Time since round start in seconds
+    public float difficultyIncreaseRate = 1f;       // How quickly difficulty rises (units per second)
+    public float difficultyStarThreshold = 30f;     // Every this many difficulty units, add police stars
+    public int difficultyStarIncrease = 1;
+    private float nextStarDifficulty = 30f;         // Next threshold for police star increase
 
     [Header("Police System")]
     public GameObject policePrefab;
@@ -32,12 +37,16 @@ public class GameMaster : MonoBehaviour
     public AudioClip deliveredPizzaSound;
     public AudioClip diedSound;
 
+	[Header("Misc")]
+	public float slowMoAmount = 0.2f;
+
+    [Header("References")]
+    public Transform player;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
-
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
@@ -48,105 +57,149 @@ public class GameMaster : MonoBehaviour
             if (playerObj) player = playerObj.transform;
         }
 
-        allHouses = new List<House>(FindObjectsOfType<House>());
-        if (allHouses.Count == 0)
-            Debug.LogWarning("GameMaster: No House scripts found in the scene!");
-
-		hunger = maxHunger;
-
-        AssignRandomDelivery();
-    }
-
-    public void Restart()
-    {
-		hunger = maxHunger;
-        AssignRandomDelivery();
+        // Automatically find all House scripts in the scene.
+        // (These houses will later be used for queued orders.)
+        // Note: Active houses are those that become “orders.”
+        activeDeliveries.Clear();
+        difficultyTime = 0f;
+        nextStarDifficulty = difficultyStarThreshold;
+        orderTimer = baseOrderInterval;
     }
 
     private void Update()
     {
+		if (alive) Time.timeScale = 1;
+		else Time.timeScale = slowMoAmount;
+		Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+        // Increase difficulty over time.
+        difficultyTime += Time.deltaTime * difficultyIncreaseRate;
         HandleHunger(Time.deltaTime);
-        UI.Instance?.UpdateHUD(); // Keep UI updated
+        UI.Instance?.UpdateHUD();
 
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			EatPizza();
-		}
-    }
-
-    private void HandleHunger(float deltaTime)
-    {
-        float hungerLoss = hungerDrainRate / 60f * deltaTime;
-        hunger -= hungerLoss;
-
-		// Player died of hunger
-		if (playerAlive && hunger < 0) {
-			playerAlive = false;
-			MusicManager.Instance.PlaySFX(diedSound);
-			UI.Instance?.ShowGameOverScreen("Died of Hunger lol");
-		}
-    }
-
-    public void AssignRandomDelivery()
-    {
-        if (allHouses.Count == 0) return;
-
-        House randomHouse;
-        do
+        // If we haven't reached max active orders, spawn new orders.
+        if (activeDeliveries.Count < maxOrders)
         {
-            randomHouse = allHouses[Random.Range(0, allHouses.Count)];
-        } while (randomHouse == currentDelivery && allHouses.Count > 1);
+            orderTimer -= Time.deltaTime;
+            if (orderTimer <= 0f)
+            {
+                House newOrder = GetRandomHouseNotActive();
+                if (newOrder != null)
+                {
+                    activeDeliveries.Add(newOrder);
+                    newOrder.Activate();
+                }
+                float adjustedInterval = Mathf.Max(2f, baseOrderInterval - difficultyTime * 0.05f);
+                orderTimer = adjustedInterval + Random.Range(-timeBetweenOrderVariance, timeBetweenOrderVariance);
+            }
+        }
 
-        if (currentDelivery != null)
-            currentDelivery.Deactivate();
-
-        currentDelivery = randomHouse;
-        currentDelivery.Activate();
-        deliveryStartTime = Time.time;
+        // Increase police pressure based on difficulty.
+        if (difficultyTime >= nextStarDifficulty)
+        {
+            policeStars += difficultyStarIncrease;
+            SpawnPoliceUnit();
+            nextStarDifficulty += difficultyStarThreshold;
+        }
     }
 
-    public void OnSuccessfulDelivery()
-    {
-		MusicManager.Instance.PlaySFX(deliveredPizzaSound);
+	private void HandleHunger(float deltaTime)
+	{
+		if (!alive) return;
 
-        // 🎉 Increase cash with a tip
-        float deliveryTime = Time.time - deliveryStartTime;
-        int tip = Mathf.Clamp(Mathf.RoundToInt(50f - deliveryTime * 2f), 5, 50);
+		float hungerLoss = hungerDrainRate / 60f * deltaTime;
+		hunger -= hungerLoss;
+
+		if (hunger < 0f)
+		{
+			alive = false;
+			MusicManager.Instance.PlaySFX(diedSound);
+			UI.Instance?.ShowGameOverScreen("Died of Hunger");
+		}
+	}
+
+    private House GetRandomHouseNotActive()
+    {
+        List<House> availableHouses = new List<House>();
+        House[] allHouses = FindObjectsOfType<House>(); // Alternatively, cache this list if houses don’t change.
+        foreach (House h in allHouses)
+        {
+            if (!activeDeliveries.Contains(h))
+                availableHouses.Add(h);
+        }
+        if (availableHouses.Count == 0)
+            return null;
+        return availableHouses[Random.Range(0, availableHouses.Count)];
+    }
+
+    // Called by a House when the player completes a delivery successfully.
+    // The tip is calculated based on how quickly the player reached that house.
+    public void OnSuccessfulDelivery(float tip)
+    {
+        MusicManager.Instance.PlaySFX(deliveredPizzaSound);
         cash += tip;
         pizzasInCar--;
 
-        // 🚨 Add police stars
-        policeStars++;
-        SpawnPoliceUnit();
+        // Remove the delivered house from active orders.
+        // (Assumes the House deactivates itself on completion.)
+        for (int i = activeDeliveries.Count - 1; i >= 0; i--)
+        {
+            if (!activeDeliveries[i].IsActive())
+            {
+                activeDeliveries.RemoveAt(i);
+            }
+        }
+    }
 
-        // 🍕 Start next delivery if pizza left
-		AssignRandomDelivery();
+    // Called by a House when the delivery times out.
+    public void FailDelivery() {
+        UI.Instance?.ShowGameOverScreen("Too slow! Failed to make your delivery");
     }
 
     private void SpawnPoliceUnit()
     {
         if (policePrefab == null || player == null) return;
-
         Vector3 randomDir = Random.onUnitSphere;
         randomDir.y = 0;
         Vector3 spawnPos = player.position + randomDir.normalized * policeSpawnDistance;
-
-        GameObject cop = Instantiate(policePrefab, spawnPos, Quaternion.identity);
+        Instantiate(policePrefab, spawnPos, Quaternion.identity);
     }
 
-	private void EatPizza() {
-		if (pizzasInCar > 0) {
-			MusicManager.Instance.PlaySFX(eatPizzaSound);
-			pizzasInCar--;
-			hunger = maxHunger;
-		}
-	}
+    public void EatPizza()
+    {
+        if (pizzasInCar > 0)
+        {
+            MusicManager.Instance.PlaySFX(eatPizzaSound);
+            pizzasInCar--;
+            hunger = maxHunger;
+        }
+    }
 
 	public void CatchPlayer()
 	{
-		if (!playerAlive) return;
+		if (!alive) return;
 
-		playerAlive = false;
+		alive = false;
 		MusicManager.Instance.PlaySFX(diedSound);
-		UI.Instance?.ShowGameOverScreen("The Police Took You Pizza!");
+		UI.Instance?.ShowGameOverScreen("The Police Took Your Pizza!");
+	}
+
+	public void DiedToWater()
+	{
+		if (!alive) return;
+
+		alive = false;
+		MusicManager.Instance.PlaySFX(diedSound);
+		UI.Instance?.ShowGameOverScreen("You can't drive there!");
+	}
+
+	public void Restart()
+	{
+		cash = 10;
+		hunger = maxHunger;
+		difficultyTime = 0f;
+		nextStarDifficulty = difficultyStarThreshold;
+		activeDeliveries.Clear();
+		alive = true;
 	}
 }

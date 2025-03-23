@@ -7,6 +7,7 @@ public class CarController : MonoBehaviour
     public float moveSpeed = 1500f;
     public float maxSpeed = 100f;
     public float maxSteerAngle = 25f;
+	public float minSteerAngle = 5f;
     public float brakeForce = 3000f;
     public Transform centerOfMass;
 
@@ -32,6 +33,10 @@ public class CarController : MonoBehaviour
 	public float autoFlipUpForce = 10000f;
 	private float flippedTimer = 0f;
 
+	[Header("Water Settings")]
+	public float waterYThreshold = -10f;
+	public AudioClip splashSound;
+
     private Rigidbody rb;
     private float steerInput;
     private float throttleInput;
@@ -55,12 +60,19 @@ public class CarController : MonoBehaviour
         UpdateWheel(rearRightWheel);
 
         UpdateEngineSound();
+
+		CheckWaterDeath();
     }
 
     private void FixedUpdate()
     {
-        float steer = steerInput * maxSteerAngle;
-        float currentSpeedKph = rb.linearVelocity.magnitude * 3.6f;
+		float currentSpeedKph = rb.linearVelocity.magnitude * 3.6f;
+
+        // Calculate effective steer angle based on current speed.
+        // At 0 km/h, effective angle = maxSteerAngle.
+        // At maxSpeed, effective angle = minSteerAngle.
+        float effectiveSteerAngle = Mathf.Lerp(maxSteerAngle, minSteerAngle, currentSpeedKph / maxSpeed);
+        float steer = steerInput * effectiveSteerAngle;
 
         bool isAccelerating = Mathf.Abs(throttleInput) > 0.05f;
         float torque = isAccelerating && currentSpeedKph < maxSpeed
@@ -132,6 +144,25 @@ public class CarController : MonoBehaviour
 		else
 		{
 			flippedTimer = 0f; // Reset if not flipped
+		}
+	}
+
+	private void CheckWaterDeath()
+	{
+		if (transform.position.y < waterYThreshold)
+		{
+			GameMaster.Instance.DiedToWater();
+
+			// Play splash sound
+			if (splashSound != null) {
+				AudioSource.PlayClipAtPoint(splashSound, transform.position);
+			}
+
+			// Inform GameMaster
+			GameMaster.Instance?.CatchPlayer();
+
+			// Optional: disable car movement or visuals
+			rb.linearVelocity = Vector3.zero;
 		}
 	}
 }
