@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pizza House
+  m_text: Pizzaria
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 01db334c5c38cff43b2a827326fab6d4, type: 2}
   m_sharedMaterial: {fileID: 5468639827044323109, guid: 1ca7467b3840c514192e752856ee05cd, type: 2}
