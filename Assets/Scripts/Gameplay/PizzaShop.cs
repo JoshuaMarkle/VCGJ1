@@ -44,7 +44,7 @@ public class PizzaShop : MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, player.position);
 
-        if (distance <= buyRange)
+        if (distance <= buyRange && GameMaster.Instance.pizzasInCar < GameMaster.Instance.carCapacity)
         {
             playerStayTimer += Time.deltaTime;
 

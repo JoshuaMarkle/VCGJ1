@@ -146,7 +146,7 @@ public class UI : MonoBehaviour
 			cashText.text = $"${GameMaster.Instance.cash}";
 
 		if (pizzaText != null)
-			pizzaText.text = $"P{GameMaster.Instance.pizzasInCar}";
+			pizzaText.text = $"{GameMaster.Instance.pizzasInCar}/{GameMaster.Instance.carCapacity}";
 
 		if (policeStarsText != null)
 			policeStarsText.text = new string('g', GameMaster.Instance.policeStars);

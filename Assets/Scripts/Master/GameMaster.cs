@@ -8,11 +8,12 @@ public class GameMaster : MonoBehaviour
     [Header("Player Stats")]
     public int cash = 10;             // Now tracking cents as well
     public int pizzasInCar = 0;
+    public int carCapacity = 3;
     public int policeStars = 0;
     public float maxHunger = 1f;
     public float hunger = 1f;
     public float hungerDrainRate = 1f;    // per minute
-	public bool alive = true;
+    public bool alive = true;
 
     [Header("Delivery Queue Settings")]
     public int maxOrders = 5;                   // Maximum number of active orders
@@ -22,11 +23,9 @@ public class GameMaster : MonoBehaviour
     private List<House> activeDeliveries = new List<House>();
 
     [Header("Difficulty Settings")]
-    public float difficultyTime = 0f;             // Time since round start in seconds
-    public float difficultyIncreaseRate = 1f;       // How quickly difficulty rises (units per second)
-    public float difficultyStarThreshold = 30f;     // Every this many difficulty units, add police stars
-    public int difficultyStarIncrease = 1;
-    private float nextStarDifficulty = 30f;         // Next threshold for police star increase
+    // During gameplay phase, use gameplayTime to drive police star increases.
+    public float difficultyStarThreshold = 30f;   // Every this many seconds of gameplay, add a star
+    private float gameplayTime = 0f;             
 
     [Header("Police System")]
     public GameObject policePrefab;
@@ -37,11 +36,14 @@ public class GameMaster : MonoBehaviour
     public AudioClip deliveredPizzaSound;
     public AudioClip diedSound;
 
-	[Header("Misc")]
-	public float slowMoAmount = 0.2f;
+    [Header("Misc")]
+    public float slowMoAmount = 0.2f;
 
     [Header("References")]
     public Transform player;
+
+    // New flag to indicate we're in the starting (tutorial) phase.
+    private bool startingPhase = true;
 
     private void Awake()
     {
@@ -56,68 +58,86 @@ public class GameMaster : MonoBehaviour
             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
             if (playerObj) player = playerObj.transform;
         }
-
-		Restart();
+        Restart();
     }
 
     private void Update()
     {
-		if (alive) Time.timeScale = 1;
-		else Time.timeScale = slowMoAmount;
-		Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        // Manage time scale (slow-mo if player isn’t alive).
+        if (alive) Time.timeScale = 1;
+        else Time.timeScale = slowMoAmount;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
-		// Input
-		// if (InputSystem.Instance.jumping || InputSystem.Instance.attacking)
-		// 	EatPizza();
-		if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Submit") || Input.GetMouseButtonDown(1))
-			EatPizza();
+        // Example input for "eating" a pizza (restores hunger) if desired.
+        if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Submit") || Input.GetMouseButtonDown(1))
+            EatPizza();
 
-        // Increase difficulty over time.
-        difficultyTime += Time.deltaTime * difficultyIncreaseRate;
         HandleHunger(Time.deltaTime);
         UI.Instance?.UpdateHUD();
 
-        // If we haven't reached max active orders, spawn new orders.
-        if (activeDeliveries.Count < maxOrders)
+        // In the starting phase, check if the player has at least one pizza
+        // but no active order. If so, automatically add a delivery order.
+        if (startingPhase)
         {
-            orderTimer -= Time.deltaTime;
-            if (orderTimer <= 0f)
+            if (pizzasInCar > 0 && activeDeliveries.Count == 0)
             {
-                House newOrder = GetRandomHouseNotActive();
-                if (newOrder != null)
-                {
-                    activeDeliveries.Add(newOrder);
-                    newOrder.Activate();
-                }
-                float adjustedInterval = Mathf.Max(2f, baseOrderInterval - difficultyTime * 0.05f);
-                orderTimer = adjustedInterval + Random.Range(-timeBetweenOrderVariance, timeBetweenOrderVariance);
+                StartInitialDelivery();
             }
+            // During starting phase, we do not spawn additional orders or scale difficulty.
+            return;
         }
-
-        // Increase police pressure based on difficulty.
-        if (difficultyTime >= nextStarDifficulty)
+        else
         {
-            policeStars += difficultyStarIncrease;
-            SpawnPoliceUnit();
-            nextStarDifficulty += difficultyStarThreshold;
+            // Gameplay phase: update gameplay time.
+            gameplayTime += Time.deltaTime;
+
+            // Increase police pressure based on gameplay time.
+            int targetStars = Mathf.FloorToInt(gameplayTime / difficultyStarThreshold);
+            if (targetStars > policeStars)
+            {
+                int diff = targetStars - policeStars;
+                policeStars = targetStars;
+                for (int i = 0; i < diff; i++)
+                {
+                    SpawnPoliceUnit();
+                }
+            }
+
+            // Spawn new orders (if under maxOrders) using gameplay time to adjust intervals.
+            if (activeDeliveries.Count < maxOrders)
+            {
+                orderTimer -= Time.deltaTime;
+                if (orderTimer <= 0f)
+                {
+                    House newOrder = GetRandomHouseNotActive();
+                    if (newOrder != null)
+                    {
+                        activeDeliveries.Add(newOrder);
+                        newOrder.Activate();
+                    }
+                    float adjustedInterval = Mathf.Max(2f, baseOrderInterval - gameplayTime * 0.05f);
+                    orderTimer = adjustedInterval + Random.Range(-timeBetweenOrderVariance, timeBetweenOrderVariance);
+                }
+            }
         }
     }
 
-	private void HandleHunger(float deltaTime)
-	{
-		if (!alive) return;
+    private void HandleHunger(float deltaTime)
+    {
+        if (!alive) return;
 
-		float hungerLoss = hungerDrainRate / 60f * deltaTime;
-		hunger -= hungerLoss;
+        float hungerLoss = hungerDrainRate / 60f * deltaTime;
+        hunger -= hungerLoss;
 
-		if (hunger < 0f)
-		{
-			alive = false;
-			MusicManager.Instance.PlaySFX(diedSound);
-			UI.Instance?.ShowGameOverScreen("Died of Hunger");
-		}
-	}
+        if (hunger < 0f)
+        {
+            alive = false;
+            MusicManager.Instance.PlaySFX(diedSound);
+            UI.Instance?.ShowGameOverScreen("Died of Hunger");
+        }
+    }
 
+    // Returns a random House that is not currently active in deliveries.
     private House GetRandomHouseNotActive()
     {
         List<House> availableHouses = new List<House>();
@@ -132,21 +152,32 @@ public class GameMaster : MonoBehaviour
         return availableHouses[Random.Range(0, availableHouses.Count)];
     }
 
-    // Called by a House when the player completes a delivery successfully.
-    // The tip is calculated based on how quickly the player reached that house.
+    // Called by a House when the player completes a delivery.
+    // The tip is normally calculated based on how quickly the player reached the house.
     public void OnSuccessfulDelivery(float tip)
     {
         MusicManager.Instance.PlaySFX(deliveredPizzaSound);
-		cash += Mathf.CeilToInt(tip);
-        pizzasInCar--;
-
-        // Remove the delivered house from active orders.
-        // (Assumes the House deactivates itself on completion.)
-        for (int i = activeDeliveries.Count - 1; i >= 0; i--)
+        if (startingPhase)
         {
-            if (!activeDeliveries[i].IsActive())
+            // In starting phase, override the tip to award exactly $12.
+            cash += 12;
+            pizzasInCar--;
+            // End the starting phase and transition to gameplay.
+            startingPhase = false;
+            gameplayTime = 0f;
+            activeDeliveries.Clear();
+        }
+        else
+        {
+            cash += Mathf.CeilToInt(tip);
+            pizzasInCar--;
+            // Remove any delivered orders.
+            for (int i = activeDeliveries.Count - 1; i >= 0; i--)
             {
-                activeDeliveries.RemoveAt(i);
+                if (!activeDeliveries[i].IsActive())
+                {
+                    activeDeliveries.RemoveAt(i);
+                }
             }
         }
     }
@@ -167,6 +198,8 @@ public class GameMaster : MonoBehaviour
 
     public void EatPizza()
     {
+        // If the player "eats" a pizza, restore hunger.
+        // (This method may be used differently during pickup vs. consumption.)
         if (pizzasInCar > 0)
         {
             MusicManager.Instance.PlaySFX(eatPizzaSound);
@@ -175,32 +208,48 @@ public class GameMaster : MonoBehaviour
         }
     }
 
-	public void CatchPlayer()
-	{
-		if (!alive) return;
+    public void CatchPlayer()
+    {
+        if (!alive) return;
 
-		alive = false;
-		MusicManager.Instance.PlaySFX(diedSound);
-		UI.Instance?.ShowGameOverScreen("The Police Took Your Pizza!");
-	}
+        alive = false;
+        MusicManager.Instance.PlaySFX(diedSound);
+        UI.Instance?.ShowGameOverScreen("The Police Took Your Pizza!");
+    }
 
-	public void DiedToWater()
-	{
-		if (!alive) return;
+    public void DiedToWater()
+    {
+        if (!alive) return;
 
-		alive = false;
-		MusicManager.Instance.PlaySFX(diedSound);
-		UI.Instance?.ShowGameOverScreen("You can't drive there!");
-	}
+        alive = false;
+        MusicManager.Instance.PlaySFX(diedSound);
+        UI.Instance?.ShowGameOverScreen("You can't drive there!");
+    }
 
-	public void Restart()
-	{
-		cash = 10;
-		hunger = maxHunger;
-		difficultyTime = 0f;
-		nextStarDifficulty = difficultyStarThreshold;
-		activeDeliveries.Clear();
-		alive = true;
+    public void Restart()
+    {
+        cash = 10;
+        hunger = maxHunger;
+        gameplayTime = 0f;
         orderTimer = baseOrderInterval;
-	}
+        activeDeliveries.Clear();
+        alive = true;
+        // Begin in the starting phase.
+        startingPhase = true;
+    }
+
+    // Called externally (for example, when the player picks up their first pizza)
+    // to ensure an order is added during the starting phase.
+    public void StartInitialDelivery()
+    {
+        if (startingPhase && activeDeliveries.Count == 0)
+        {
+            House startingOrder = GetRandomHouseNotActive();
+            if (startingOrder != null)
+            {
+                activeDeliveries.Add(startingOrder);
+                startingOrder.Activate();
+            }
+        }
+    }
 }
