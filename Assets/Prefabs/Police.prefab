@@ -461,9 +461,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   predictionTime: 1
-  reverseDistance: 7
+  reverseDistance: 8
   catchDistance: 3
-  catchTime: 2.5
+  catchTime: 2
   minPlayerCatchSpeed: 30
   moveSpeed: 15000
   maxSpeed: 250
