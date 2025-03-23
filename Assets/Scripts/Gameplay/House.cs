@@ -75,20 +75,35 @@ public class House : MonoBehaviour
                 indComp.UpdateIndicatorText(formattedTime, Vector3.Distance(transform.position, player.position));
             }
 
-            // Change text color if below the warning threshold (only if timed).
-            if (timed && timeLeft <= warningThreshold)
-            {
-                indComp.SetTextColor(Color.red);
+			if (timed)
+			{
+				float percent = Mathf.Clamp01(GetTimeLeft() / maxDeliveryDuration);
 
-                // Play warning sound once.
-                if (!warningPassed)
-                    MusicManager.Instance.PlaySFX(warningSound);
-                warningPassed = true;
-            }
-            else
-            {
-                indComp.SetTextColor(Color.white); // Reset color if safe
-            }
+				// Interpolate from red (0%) to yellow (50%) to green (100%)
+				Color timeColor;
+				if (percent > 0.5f)
+				{
+					float t = (percent - 0.5f) * 2f;
+					timeColor = Color.Lerp(Color.yellow, Color.green, t);
+				}
+				else
+				{
+					float t = percent * 2f;
+					timeColor = Color.Lerp(Color.red, Color.yellow, t);
+				}
+
+				indComp.SetTextColor(timeColor);
+
+				if (!warningPassed && percent <= warningThreshold / maxDeliveryDuration)
+				{
+					MusicManager.Instance.PlaySFX(warningSound);
+					warningPassed = true;
+				}
+			}
+			else
+			{
+				indComp.SetTextColor(Color.green); // Infinite time = always green
+			}
         }
 
         UpdateAreaPulse();

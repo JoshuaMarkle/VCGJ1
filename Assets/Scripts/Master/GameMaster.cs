@@ -34,9 +34,12 @@ public class GameMaster : MonoBehaviour
     public float difficultyStarThreshold = 30f;   // Every this many seconds of gameplay, add a star
     private float gameplayTime = 0f;             
 
-    [Header("Police System")]
-    public GameObject policePrefab;
-    public float policeSpawnDistance = 60f;
+	[Header("Police System")]
+	public GameObject policePrefab;
+	public float policeSpawnDistance = 60f;
+	public int policePerStar = 2; // How many spawn per star
+	public int maxPolice = 10;    // Global cap
+	private int currentPoliceCount = 0;
 
     [Header("Audio")]
     public AudioClip eatPizzaSound;
@@ -133,14 +136,14 @@ public class GameMaster : MonoBehaviour
 			int diff = targetStars - policeStars;
 			policeStars = targetStars;
 
-			for (int i = 0; i < diff; i++)
+			int totalToSpawn = diff * policePerStar;
+			for (int i = 0; i < totalToSpawn; i++)
 			{
-				// Exponentially increase the number of units per star level
-				int numToSpawn = Mathf.FloorToInt(Mathf.Pow(2, policeStars - diff + i));
-				for (int j = 0; j < numToSpawn; j++)
-				{
-					SpawnPoliceUnit();
-				}
+				if (currentPoliceCount >= maxPolice)
+					break;
+
+				SpawnPoliceUnit();
+				currentPoliceCount++;
 			}
 		}
 

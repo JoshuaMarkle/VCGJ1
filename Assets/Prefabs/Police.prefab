@@ -391,7 +391,7 @@ GameObject:
   - component: {fileID: 3038051848722640667}
   m_Layer: 0
   m_Name: Police
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -462,20 +462,16 @@ MonoBehaviour:
   player: {fileID: 0}
   predictionTime: 1
   reverseDistance: 5
-  catchDistance: 7
+  catchDistance: 0
   catchTime: 1
   minPlayerCatchSpeed: 30
   moveSpeed: 10000
   maxSpeed: 250
   maxSteerAngle: 30
-  minSteerAngle: 5
   brakeForce: 100000
   centerOfMass: {fileID: 7283391826550654819}
-  engineSound: {fileID: 0}
   minEnginePitch: 0.8
   maxEnginePitch: 2
-  engineVolMin: 0.1
-  engineVolMax: 0.5
   frontLeftWheel: {fileID: 2617482759737985178}
   frontRightWheel: {fileID: 1259004584323842394}
   rearLeftWheel: {fileID: 1167958952418074164}
@@ -486,8 +482,6 @@ MonoBehaviour:
   timeToAutoFlip: 2
   autoFlipTorque: 10000
   autoFlipUpForce: 10000
-  waterYThreshold: -10
-  splashSound: {fileID: 8300000, guid: 9bbb628de94f8f740bea2e9c38d86614, type: 3}
   reverseDecisionCooldown: 1
   separationRadius: 8
   separationStrength: 1.2
@@ -500,7 +494,7 @@ MonoBehaviour:
   forwardRayPos: {fileID: 490994325059006746}
   leftRayPos: {fileID: 3945526479224952303}
   rightRayPos: {fileID: 2454385897968027778}
-  detectionDistance: 0.8
+  detectionDistance: 0.15
   avoidDuration: 1.5
   avoidSteerDirection: 1
   pathUpdateInterval: 0.5
@@ -518,7 +512,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 973a3105e64ba1e438e810c62ee1c09a, type: 3}
   m_Resource: {fileID: 8300000, guid: 973a3105e64ba1e438e810c62ee1c09a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
