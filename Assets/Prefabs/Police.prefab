@@ -462,8 +462,8 @@ MonoBehaviour:
   predictionTime: 1
   reverseDistance: 5
   catchDistance: 7
-  catchTime: 2
-  minPlayerCatchSpeed: 5
+  catchTime: 1
+  minPlayerCatchSpeed: 30
   moveSpeed: 10000
   maxSpeed: 250
   maxSteerAngle: 30
@@ -475,7 +475,7 @@ MonoBehaviour:
   frontRightWheel: {fileID: 1259004584323842394}
   rearLeftWheel: {fileID: 1167958952418074164}
   rearRightWheel: {fileID: 6186183333693420748}
-  downForce: 2500
+  downForce: 2000
   flipTorque: 500
   flipDetectionAngle: 120
   timeToAutoFlip: 2
@@ -562,7 +562,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 1
     m_AsymptoteValue: 1
-    m_Stiffness: 20
+    m_Stiffness: 10
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -865,7 +865,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 1
     m_AsymptoteValue: 1
-    m_Stiffness: 20
+    m_Stiffness: 10
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1020,7 +1020,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 1
     m_AsymptoteValue: 1
-    m_Stiffness: 20
+    m_Stiffness: 10
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1113,7 +1113,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 1
     m_AsymptoteValue: 1
-    m_Stiffness: 20
+    m_Stiffness: 10
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
