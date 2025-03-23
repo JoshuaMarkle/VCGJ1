@@ -47,11 +47,11 @@ public class Indicator : MonoBehaviour
 		indicatorRect.position = screenPos;
 	}
 
-	public void UpdateIndicatorText(string newText)
+	public void UpdateIndicatorText(string newText, float distance)
 	{
 		if (indicatorText != null)
 		{
-			indicatorText.text = newText;
+			indicatorText.text = newText + "\n" + distance.ToString("F1") + "m";
 		}
 	}
 

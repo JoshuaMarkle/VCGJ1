@@ -5003,7 +5003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c05efbd0124e3ba408d432cf935790dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyValue: 25
+  moneyValue: 15
   collectionDistance: 5
   despawnDistance: 500
   moneySound: {fileID: 8300000, guid: 3d2b4a22f482f36418fb9da4850841e5, type: 3}

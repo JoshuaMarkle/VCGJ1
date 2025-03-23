@@ -139,11 +139,15 @@ public class GameMaster : MonoBehaviour
             if (orderTimer <= 0f)
             {
                 House newOrder = GetRandomHouseNotActive();
-                if (newOrder != null)
-                {
-                    activeDeliveries.Add(newOrder);
-                    newOrder.Activate();
-                }
+				if (newOrder != null)
+				{
+					float distanceToPlayer = Vector3.Distance(player.position, newOrder.transform.position);
+					float scaledTime = Mathf.Max(10f, distanceToPlayer * 0.1f); // 100m = 10s, minimum 10s
+					newOrder.maxDeliveryDuration = scaledTime;
+
+					activeDeliveries.Add(newOrder);
+					newOrder.Activate();
+				}
                 float adjustedInterval = Mathf.Max(2f, baseOrderInterval - gameplayTime * 0.05f);
                 orderTimer = adjustedInterval + Random.Range(-timeBetweenOrderVariance, timeBetweenOrderVariance);
             }
@@ -290,17 +294,17 @@ public class GameMaster : MonoBehaviour
 
     // Called externally (for example, when the player picks up their first pizza)
     // to force a delivery order into the queue during the starting phase.
-    public void StartInitialDelivery()
-    {
-        if (startingPhase && activeDeliveries.Count == 0)
-        {
-            House startingOrder = GetRandomHouseNotActive();
-			startingOrder.timed = false;
-            if (startingOrder != null)
-            {
-                activeDeliveries.Add(startingOrder);
-                startingOrder.Activate();
-            }
-        }
-    }
+	public void StartInitialDelivery()
+	{
+		if (startingPhase && activeDeliveries.Count == 0)
+		{
+			House startingOrder = GetRandomHouseNotActive();
+			if (startingOrder != null)
+			{
+				startingOrder.timed = false;
+				activeDeliveries.Add(startingOrder);
+				startingOrder.Activate();
+			}
+		}
+	}
 }

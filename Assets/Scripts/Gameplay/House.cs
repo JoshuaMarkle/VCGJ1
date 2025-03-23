@@ -72,7 +72,7 @@ public class House : MonoBehaviour
             Indicator indComp = indicator.GetComponent<Indicator>();
             if (indComp != null)
             {
-                indComp.UpdateIndicatorText(formattedTime);
+                indComp.UpdateIndicatorText(formattedTime, Vector3.Distance(transform.position, player.position));
             }
 
             // Change text color if below the warning threshold (only if timed).
@@ -197,11 +197,8 @@ public class House : MonoBehaviour
     private string FormatTime(float seconds)
     {
         if (float.IsInfinity(seconds))
-        {
-            return "∞";
-        }
+            return "";
         int secs = Mathf.FloorToInt(seconds);
-        int millis = Mathf.FloorToInt((seconds - secs) * 1000f);
-        return string.Format("{0:00}:{1:000}", secs, millis);
+        return string.Format("{0:00}", secs);
     }
 }
