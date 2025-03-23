@@ -82,13 +82,13 @@ public class UI : MonoBehaviour
 
 	private void Update()
 	{
-		// if (Input.GetKeyDown(KeyCode.Escape))
-		// {
-		// 	TogglePauseMenu();
-		// }
-
-		if (InputSystem.Instance.escape)
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
 			TogglePauseMenu();
+		}
+
+		// if (InputSystem.)
+		// 	TogglePauseMenu();
 
 		UpdateHUD();
 	}
@@ -240,5 +240,9 @@ public class UI : MonoBehaviour
 
 	public void HideEatIndicator() {
 		eatIndicator.SetActive(false);
+	}
+
+	public void LoadingScreen() {
+		SceneManager.LoadScene("Loading");
 	}
 }
