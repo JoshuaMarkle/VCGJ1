@@ -14,6 +14,7 @@ public class GameMaster : MonoBehaviour
     public float hunger = 1f;
     public float hungerDrainRate = 1f;    // per minute
     public bool alive = true;
+	public Transform spawnPos;
 
     [Header("Delivery Queue Settings")]
     public int maxOrders = 5;                   // Maximum number of active orders
@@ -42,7 +43,13 @@ public class GameMaster : MonoBehaviour
     [Header("References")]
     public Transform player;
 
-    // New flag to indicate we're in the starting (tutorial) phase.
+    // New fields for arrow pointer guidance in the starting phase.
+    [Header("Arrow Pointer")]
+    public GameObject arrowPointerPrefab;  // Assign your arrow pointer prefab here.
+    public Transform pizzaShopTarget;      // Reference to the transform above the pizza shop.
+    private ArrowPointer arrowPointerInstance;
+
+    // Flag for the starting (tutorial) phase.
     private bool startingPhase = true;
 
     private void Awake()
@@ -58,66 +65,86 @@ public class GameMaster : MonoBehaviour
             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
             if (playerObj) player = playerObj.transform;
         }
+
         Restart();
     }
 
     private void Update()
     {
-        // Manage time scale (slow-mo if player isn’t alive).
+        // Manage time scale (normal if alive, slow-mo if dead)
         if (alive) Time.timeScale = 1;
         else Time.timeScale = slowMoAmount;
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
-        // Example input for "eating" a pizza (restores hunger) if desired.
+        // Allow "eating" a pizza to restore hunger.
         if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Submit") || Input.GetMouseButtonDown(1))
             EatPizza();
 
         HandleHunger(Time.deltaTime);
         UI.Instance?.UpdateHUD();
 
-        // In the starting phase, check if the player has at least one pizza
-        // but no active order. If so, automatically add a delivery order.
+        // -------------------------------
+        // Starting Phase Logic
+        // -------------------------------
         if (startingPhase)
         {
+            // Ensure an arrow pointer exists.
+            if (arrowPointerInstance == null && arrowPointerPrefab != null)
+            {
+                GameObject arrowObj = Instantiate(arrowPointerPrefab);
+                arrowPointerInstance = arrowObj.GetComponent<ArrowPointer>();
+                // Initially point the arrow to the pizza shop.
+                if (pizzaShopTarget != null)
+                {
+                    arrowPointerInstance.pizzaTarget = pizzaShopTarget;
+                }
+
+            }
+
+            // Once the player has picked up a pizza and an order is queued,
+            // update the arrow pointer to point to the first active order.
             if (pizzasInCar > 0 && activeDeliveries.Count == 0)
             {
-                StartInitialDelivery();
+    			StartInitialDelivery();
+
+				if (arrowPointerInstance)
+					arrowPointerInstance.pizzaTarget = activeDeliveries[0].transform;
             }
-            // During starting phase, we do not spawn additional orders or scale difficulty.
+            // Do not process gameplay-phase logic while in starting phase.
             return;
         }
-        else
+
+        // -------------------------------
+        // Gameplay Phase Logic
+        // -------------------------------
+        gameplayTime += Time.deltaTime;
+
+        // Increase police pressure based on gameplay time.
+        int targetStars = Mathf.FloorToInt(gameplayTime / difficultyStarThreshold);
+        if (targetStars > policeStars)
         {
-            // Gameplay phase: update gameplay time.
-            gameplayTime += Time.deltaTime;
-
-            // Increase police pressure based on gameplay time.
-            int targetStars = Mathf.FloorToInt(gameplayTime / difficultyStarThreshold);
-            if (targetStars > policeStars)
+            int diff = targetStars - policeStars;
+            policeStars = targetStars;
+            for (int i = 0; i < diff; i++)
             {
-                int diff = targetStars - policeStars;
-                policeStars = targetStars;
-                for (int i = 0; i < diff; i++)
-                {
-                    SpawnPoliceUnit();
-                }
+                SpawnPoliceUnit();
             }
+        }
 
-            // Spawn new orders (if under maxOrders) using gameplay time to adjust intervals.
-            if (activeDeliveries.Count < maxOrders)
+        // Spawn new orders if under the maximum.
+        if (activeDeliveries.Count < maxOrders)
+        {
+            orderTimer -= Time.deltaTime;
+            if (orderTimer <= 0f)
             {
-                orderTimer -= Time.deltaTime;
-                if (orderTimer <= 0f)
+                House newOrder = GetRandomHouseNotActive();
+                if (newOrder != null)
                 {
-                    House newOrder = GetRandomHouseNotActive();
-                    if (newOrder != null)
-                    {
-                        activeDeliveries.Add(newOrder);
-                        newOrder.Activate();
-                    }
-                    float adjustedInterval = Mathf.Max(2f, baseOrderInterval - gameplayTime * 0.05f);
-                    orderTimer = adjustedInterval + Random.Range(-timeBetweenOrderVariance, timeBetweenOrderVariance);
+                    activeDeliveries.Add(newOrder);
+                    newOrder.Activate();
                 }
+                float adjustedInterval = Mathf.Max(2f, baseOrderInterval - gameplayTime * 0.05f);
+                orderTimer = adjustedInterval + Random.Range(-timeBetweenOrderVariance, timeBetweenOrderVariance);
             }
         }
     }
@@ -137,7 +164,7 @@ public class GameMaster : MonoBehaviour
         }
     }
 
-    // Returns a random House that is not currently active in deliveries.
+    // Returns a random House that is not currently active.
     private House GetRandomHouseNotActive()
     {
         List<House> availableHouses = new List<House>();
@@ -153,19 +180,25 @@ public class GameMaster : MonoBehaviour
     }
 
     // Called by a House when the player completes a delivery.
-    // The tip is normally calculated based on how quickly the player reached the house.
+    // The tip is normally calculated based on delivery speed.
     public void OnSuccessfulDelivery(float tip)
     {
         MusicManager.Instance.PlaySFX(deliveredPizzaSound);
         if (startingPhase)
         {
-            // In starting phase, override the tip to award exactly $12.
+            // In starting phase, override the tip and award exactly $12.
             cash += 12;
             pizzasInCar--;
             // End the starting phase and transition to gameplay.
             startingPhase = false;
             gameplayTime = 0f;
             activeDeliveries.Clear();
+            // Remove the arrow pointer.
+            if (arrowPointerInstance != null)
+            {
+                Destroy(arrowPointerInstance.gameObject);
+                arrowPointerInstance = null;
+            }
         }
         else
         {
@@ -198,8 +231,6 @@ public class GameMaster : MonoBehaviour
 
     public void EatPizza()
     {
-        // If the player "eats" a pizza, restore hunger.
-        // (This method may be used differently during pickup vs. consumption.)
         if (pizzasInCar > 0)
         {
             MusicManager.Instance.PlaySFX(eatPizzaSound);
@@ -228,23 +259,42 @@ public class GameMaster : MonoBehaviour
 
     public void Restart()
     {
+		// player.position = spawnPos.position;
         cash = 10;
         hunger = maxHunger;
         gameplayTime = 0f;
         orderTimer = baseOrderInterval;
         activeDeliveries.Clear();
         alive = true;
-        // Begin in the starting phase.
         startingPhase = true;
+
+		Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+        // Create the arrow pointer for the starting phase.
+        if (startingPhase && arrowPointerPrefab != null)
+        {
+            if (arrowPointerInstance != null)
+            {
+                Destroy(arrowPointerInstance.gameObject);
+            }
+            GameObject arrowObj = Instantiate(arrowPointerPrefab);
+            arrowPointerInstance = arrowObj.GetComponent<ArrowPointer>();
+            if (pizzaShopTarget != null)
+            {
+                arrowPointerInstance.pizzaTarget = pizzaShopTarget;
+            }
+        }
     }
 
     // Called externally (for example, when the player picks up their first pizza)
-    // to ensure an order is added during the starting phase.
+    // to force a delivery order into the queue during the starting phase.
     public void StartInitialDelivery()
     {
         if (startingPhase && activeDeliveries.Count == 0)
         {
             House startingOrder = GetRandomHouseNotActive();
+			startingOrder.timed = false;
             if (startingOrder != null)
             {
                 activeDeliveries.Add(startingOrder);

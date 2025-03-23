@@ -7,6 +7,7 @@ public class House : MonoBehaviour
     public float maxDeliveryDuration = 20f;  // Maximum time allowed to complete delivery
     public float minTip = 10f;               // Minimum tip amount
     public float maxTip = 50f;               // Maximum tip amount
+    public bool timed = true;                // If false, delivery never fails due to time
 
     [Header("Area Visual")]
     public GameObject areaPrefab;
@@ -18,9 +19,9 @@ public class House : MonoBehaviour
     [Header("Indicator")]
     public GameObject indicatorPrefab;  // Prefab for the indicator UI (should have an Indicator component)
     private GameObject indicator;       // Instance of the indicator
-	public float warningThreshold = 10f;
-	public AudioClip warningSound;
-	private bool warningPassed = false;
+    public float warningThreshold = 10f;
+    public AudioClip warningSound;
+    private bool warningPassed = false;
 
     private Transform player;
     private float deliveryTimer = 0f;
@@ -32,22 +33,25 @@ public class House : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
-		warningPassed = false;
+        warningPassed = false;
     }
 
     private void Update()
     {
         if (!isActive || player == null) return;
 
-        // Increase delivery timer as soon as the house is active.
-        deliveryTimer += Time.deltaTime;
-
-        // If the delivery takes too long, fail the delivery.
-        if (deliveryTimer >= maxDeliveryDuration)
+        // Only update timer if this house is timed.
+        if (timed)
         {
-            GameMaster.Instance.FailDelivery();
-            Deactivate();
-            return;
+            deliveryTimer += Time.deltaTime;
+
+            // If the delivery takes too long, fail the delivery.
+            if (deliveryTimer >= maxDeliveryDuration)
+            {
+                GameMaster.Instance.FailDelivery();
+                Deactivate();
+                return;
+            }
         }
 
         float distance = Vector3.Distance(transform.position, player.position);
@@ -58,12 +62,12 @@ public class House : MonoBehaviour
             CompleteDelivery();
         }
 
-        // Update the indicator text with the time left formatted as MM:SS.
+        // Update the indicator text with the remaining time.
         if (indicator != null)
         {
             float timeLeft = GetTimeLeft();
             string formattedTime = FormatTime(timeLeft);
-			
+
             // Assumes the indicator prefab has an Indicator component.
             Indicator indComp = indicator.GetComponent<Indicator>();
             if (indComp != null)
@@ -71,17 +75,20 @@ public class House : MonoBehaviour
                 indComp.UpdateIndicatorText(formattedTime);
             }
 
-			// Change the color
-			if (timeLeft <= warningThreshold) {
-				indComp.SetTextColor(Color.red);
+            // Change text color if below the warning threshold (only if timed).
+            if (timed && timeLeft <= warningThreshold)
+            {
+                indComp.SetTextColor(Color.red);
 
-				// Play sound
-				if (!warningPassed)
-					MusicManager.Instance.PlaySFX(warningSound);
-				warningPassed = true;
-			} else {
-				indComp.SetTextColor(Color.white); // Reset if back to safe
-			}
+                // Play warning sound once.
+                if (!warningPassed)
+                    MusicManager.Instance.PlaySFX(warningSound);
+                warningPassed = true;
+            }
+            else
+            {
+                indComp.SetTextColor(Color.white); // Reset color if safe
+            }
         }
 
         UpdateAreaPulse();
@@ -105,14 +112,14 @@ public class House : MonoBehaviour
         {
             indicator = Instantiate(indicatorPrefab);
 
-			// Find the UI Canvas (make sure your Canvas is tagged "UI")
-			GameObject canvasObj = GameObject.FindGameObjectWithTag("UI");
-			if (canvasObj != null)
-			{
-				// Parent the indicator to the Canvas. Setting worldPositionStays to false
-				// makes it adopt the local coordinates of the Canvas.
-				indicator.transform.SetParent(canvasObj.transform, false);
-			}
+            // Find the UI Canvas (make sure your Canvas is tagged "UI")
+            GameObject canvasObj = GameObject.FindGameObjectWithTag("UI");
+            if (canvasObj != null)
+            {
+                // Parent the indicator to the Canvas. Setting worldPositionStays to false
+                // makes it adopt the local coordinates of the Canvas.
+                indicator.transform.SetParent(canvasObj.transform, false);
+            }
 
             // Set the target for the indicator to this house.
             Indicator indComp = indicator.GetComponent<Indicator>();
@@ -155,11 +162,18 @@ public class House : MonoBehaviour
 
     private void CompleteDelivery()
     {
-        // Calculate tip based on delivery time.
-        // A fast delivery (deliveryTimer near 0) gets near maxTip,
-        // while a slow delivery (deliveryTimer near maxDeliveryDuration) gets near minTip.
-        float normalizedTime = Mathf.Clamp01(deliveryTimer / maxDeliveryDuration);
-        float tip = Mathf.Lerp(maxTip, minTip, normalizedTime);
+        float tip;
+        // If not timed, award the maximum tip.
+        if (!timed)
+        {
+            tip = maxTip;
+        }
+        else
+        {
+            // Calculate tip based on delivery time.
+            float normalizedTime = Mathf.Clamp01(deliveryTimer / maxDeliveryDuration);
+            tip = Mathf.Lerp(maxTip, minTip, normalizedTime);
+        }
         GameMaster.Instance.OnSuccessfulDelivery(tip);
         Deactivate();
     }
@@ -170,17 +184,23 @@ public class House : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, deliveryRange);
     }
 
-    // Returns the remaining delivery time in seconds.
+    // Returns the remaining delivery time in seconds. If not timed, returns Infinity.
     public float GetTimeLeft()
     {
+        if (!timed)
+            return Mathf.Infinity;
         return Mathf.Max(0f, maxDeliveryDuration - deliveryTimer);
     }
 
-	// Formats time into a string "SS:MS"
-	private string FormatTime(float seconds)
-	{
-		int secs = Mathf.FloorToInt(seconds);
-		int millis = Mathf.FloorToInt((seconds - secs) * 1000f);
-		return string.Format("{0:00}:{1:000}", secs, millis);
-	}
+    // Formats time into a string "SS:MS". If time is Infinity, returns "∞".
+    private string FormatTime(float seconds)
+    {
+        if (float.IsInfinity(seconds))
+        {
+            return "∞";
+        }
+        int secs = Mathf.FloorToInt(seconds);
+        int millis = Mathf.FloorToInt((seconds - secs) * 1000f);
+        return string.Format("{0:00}:{1:000}", secs, millis);
+    }
 }

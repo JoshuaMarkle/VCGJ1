@@ -50,8 +50,12 @@ public class CarController : MonoBehaviour
     private void Update()
     {
         // Input
-        steerInput = Input.GetAxis("Horizontal");
-        throttleInput = Input.GetAxis("Vertical");
+		steerInput = 0f;
+		throttleInput = 0f;
+		if (GameMaster.Instance.alive) {
+			steerInput = Input.GetAxis("Horizontal");
+			throttleInput = Input.GetAxis("Vertical");
+		}
 		// steerInput = InputSystem.Instance.moveDir.x;
 		// throttleInput = InputSystem.Instance.moveDir.y;
 
@@ -73,8 +77,8 @@ public class CarController : MonoBehaviour
         // Calculate effective steer angle based on current speed.
         // At 0 km/h, effective angle = maxSteerAngle.
         // At maxSpeed, effective angle = minSteerAngle.
-        float effectiveSteerAngle = Mathf.Lerp(maxSteerAngle, minSteerAngle, currentSpeedKph / maxSpeed);
-        float steer = steerInput * effectiveSteerAngle;
+			float effectiveSteerAngle = Mathf.Lerp(maxSteerAngle, minSteerAngle, currentSpeedKph / maxSpeed);
+			float steer = steerInput * effectiveSteerAngle;
 
         bool isAccelerating = Mathf.Abs(throttleInput) > 0.05f;
         float torque = isAccelerating && currentSpeedKph < maxSpeed

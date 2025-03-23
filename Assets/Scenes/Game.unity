@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.005
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
+  m_AmbientSkyColor: {r: 0.78436655, g: 0.6412655, b: 0.595146, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -8945,6 +8945,7 @@ MonoBehaviour:
   maxDeliveryDuration: 60
   minTip: 10
   maxTip: 30
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
@@ -11890,62 +11891,6 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
---- !u!1 &700532038
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 700532040}
-  - component: {fileID: 700532039}
-  m_Layer: 0
-  m_Name: Arrow
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &700532039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 700532038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc31ecf8c39eb584e8c38574bb88f5c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 8561517197209158852}
-  pizzaTarget: {fileID: 291867378}
-  mainCamera: {fileID: 330585545}
-  shopOffset: {x: 0, y: 0, z: 0}
-  oscillationAmplitude: 1
-  oscillationSpeed: 8
-  followOffsetY: 5
-  orbitRadius: -25
-  orbitHeight: 2
-  spinSpeed: 100
-  transitionSpeed: 10
---- !u!4 &700532040
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 700532038}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.927237, y: 2.0037823, z: 24.153353}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8198220686170523491}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &700968236
 GameObject:
   m_ObjectHideFlags: 0
@@ -13314,6 +13259,7 @@ MonoBehaviour:
   hunger: 1
   hungerDrainRate: 1
   alive: 1
+  spawnPos: {fileID: 1780995584}
   maxOrders: 5
   baseOrderInterval: 10
   timeBetweenOrderVariance: 10
@@ -13325,6 +13271,8 @@ MonoBehaviour:
   diedSound: {fileID: 8300000, guid: 9bbb628de94f8f740bea2e9c38d86614, type: 3}
   slowMoAmount: 0.2
   player: {fileID: 8561517197209158852}
+  arrowPointerPrefab: {fileID: 5961328217647370632, guid: f07a570153d031e4dae206aad0c02236, type: 3}
+  pizzaShopTarget: {fileID: 291867378}
 --- !u!4 &763902735
 Transform:
   m_ObjectHideFlags: 0
@@ -18911,7 +18859,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1136174309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19184,6 +19132,7 @@ MonoBehaviour:
   maxDeliveryDuration: 60
   minTip: 10
   maxTip: 30
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
@@ -20583,6 +20532,7 @@ MonoBehaviour:
   maxDeliveryDuration: 60
   minTip: 10
   maxTip: 30
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
@@ -21487,6 +21437,7 @@ MonoBehaviour:
   maxDeliveryDuration: 60
   minTip: 10
   maxTip: 30
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
@@ -24068,6 +24019,7 @@ MonoBehaviour:
   maxDeliveryDuration: 60
   minTip: 10
   maxTip: 30
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
@@ -26258,6 +26210,165 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1602282769}
   m_Mesh: {fileID: -1313777316248833878, guid: d157377e68bde3f4da90c169ac4a48d7, type: 3}
+--- !u!1 &1603591677
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1603591678}
+  - component: {fileID: 1603591681}
+  - component: {fileID: 1603591680}
+  - component: {fileID: 1603591679}
+  m_Layer: 5
+  m_Name: Space
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1603591678
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603591677}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2093472011}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: -25}
+  m_SizeDelta: {x: 500, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &1603591679
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603591677}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9365233d259fdca4c903149e34c10ec1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1603591680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603591677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: '[Space]'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 01db334c5c38cff43b2a827326fab6d4, type: 2}
+  m_sharedMaterial: {fileID: -5871970439973941554, guid: 01db334c5c38cff43b2a827326fab6d4, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 50
+  m_fontSizeBase: 50
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1603591681
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603591677}
+  m_CullTransparentMesh: 1
 --- !u!1 &1604275493
 GameObject:
   m_ObjectHideFlags: 0
@@ -27084,6 +27195,7 @@ MonoBehaviour:
   maxDeliveryDuration: 60
   minTip: 10
   maxTip: 30
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
@@ -29474,6 +29586,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1780809893}
   m_Mesh: {fileID: 8214413220516666622, guid: d157377e68bde3f4da90c169ac4a48d7, type: 3}
+--- !u!1 &1780995583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1780995584}
+  m_Layer: 0
+  m_Name: Spawn Pos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1780995584
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780995583}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 246.54999, y: 1, z: -99.9238}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1781484045
 GameObject:
   m_ObjectHideFlags: 0
@@ -35053,7 +35196,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2055428093
 Transform:
   m_ObjectHideFlags: 0
@@ -35934,6 +36077,166 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2080050996}
   m_Mesh: {fileID: 6191134344042153727, guid: d157377e68bde3f4da90c169ac4a48d7, type: 3}
+--- !u!1 &2093472007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2093472011}
+  - component: {fileID: 2093472010}
+  - component: {fileID: 2093472009}
+  - component: {fileID: 2093472008}
+  m_Layer: 5
+  m_Name: Eat Pizza Indicator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!95 &2093472008
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093472007}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9365233d259fdca4c903149e34c10ec1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2093472009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093472007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Eat a PIZZA
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 01db334c5c38cff43b2a827326fab6d4, type: 2}
+  m_sharedMaterial: {fileID: -5871970439973941554, guid: 01db334c5c38cff43b2a827326fab6d4, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 50
+  m_fontSizeBase: 50
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &2093472010
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093472007}
+  m_CullTransparentMesh: 1
+--- !u!224 &2093472011
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093472007}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1603591678}
+  m_Father: {fileID: 1836352021140227407}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: -15.000004}
+  m_SizeDelta: {x: 500, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2097160105
 GameObject:
   m_ObjectHideFlags: 0
@@ -38203,6 +38506,7 @@ MonoBehaviour:
   pizzaText: {fileID: 1479413735}
   policeStarsText: {fileID: 3133309707642185765}
   hungerSlider: {fileID: 4251627995740798893}
+  eatIndicator: {fileID: 2093472007}
   gameOverSubtitle: {fileID: 1868362602}
   panel: {fileID: 6694579119839521719}
   fadeTime: 1
@@ -46887,6 +47191,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2093472011}
   - {fileID: 4479963231488250631}
   - {fileID: 8891023845771695356}
   - {fileID: 5833750015753392401}
@@ -50106,14 +50411,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &2409931272099595337
 GameObject:
   m_ObjectHideFlags: 0
@@ -55336,14 +55642,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &3484478207743550812
 Transform:
   m_ObjectHideFlags: 0
@@ -55939,14 +56246,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!224 &3592412249400675585
 RectTransform:
   m_ObjectHideFlags: 0
@@ -56076,14 +56384,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &3618247509828595057
 GameObject:
   m_ObjectHideFlags: 0
@@ -56585,14 +56894,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &3679881067670272034
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -58493,25 +58803,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &4023420986310854198
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8198220686170523491}
-  - component: {fileID: 7897418518320362345}
-  - component: {fileID: 6476644150648707669}
-  - component: {fileID: 8198220686170523492}
-  m_Layer: 0
-  m_Name: Render
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &4023694310891516122
 Transform:
   m_ObjectHideFlags: 0
@@ -58579,14 +58870,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &4033483647145552064
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -58707,14 +58999,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!54 &4038491872617029647
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -58981,14 +59274,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &4073441121137181550
 GameObject:
   m_ObjectHideFlags: 0
@@ -59153,14 +59447,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &4099867549255976467
 GameObject:
   m_ObjectHideFlags: 0
@@ -59733,14 +60028,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &4226360627887149018
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -61227,14 +61523,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &4477680385473723164
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -62779,14 +63076,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!114 &4805472341026127278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63055,14 +63353,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &4843154865171114542
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -63596,14 +63895,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &4935318229826390882
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -63938,14 +64238,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &4994834582400601922
 Transform:
   m_ObjectHideFlags: 0
@@ -64149,14 +64450,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &5032433085754755323
 GameObject:
   m_ObjectHideFlags: 0
@@ -64533,14 +64835,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &5080330036179953115
 GameObject:
   m_ObjectHideFlags: 0
@@ -65118,14 +65421,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &5177217939861765415
 GameObject:
   m_ObjectHideFlags: 0
@@ -65201,14 +65505,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &5181535009568788058
 GameObject:
   m_ObjectHideFlags: 0
@@ -66121,14 +66426,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &5342301007229887561
 Transform:
   m_ObjectHideFlags: 0
@@ -66350,14 +66656,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &5371801681053065774
 Transform:
   m_ObjectHideFlags: 0
@@ -66910,14 +67217,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &5443974422370643972
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -67004,14 +67312,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &5451127891553862090
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -67497,14 +67806,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &5553594064791099924
 Transform:
   m_ObjectHideFlags: 0
@@ -67565,14 +67875,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &5572087789256212160
 Transform:
   m_ObjectHideFlags: 0
@@ -67625,14 +67936,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &5580898523413170302
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -68575,14 +68887,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &5693627921034919618
 GameObject:
   m_ObjectHideFlags: 0
@@ -68746,14 +69059,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &5720615108252316549
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -69065,14 +69379,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &5773827086067292033
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -69204,14 +69519,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &5780238543207140279
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -69552,14 +69868,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &5830575164892645116
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -69668,14 +69985,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &5843648488468707816
 Transform:
   m_ObjectHideFlags: 0
@@ -69728,14 +70046,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &5843897751437100403
 GameObject:
   m_ObjectHideFlags: 0
@@ -71793,14 +72112,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &6149815198466511546
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -72359,14 +72679,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &6232798199702661160
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -72889,14 +73210,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &6351437184243735638
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -73014,14 +73336,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &6364174902311698434
 GameObject:
   m_ObjectHideFlags: 0
@@ -73227,14 +73550,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &6400401657389329804
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -73803,14 +74127,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &6459673464424987051
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -73834,51 +74159,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 699666697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &6476644150648707669
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4023420986310854198}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 24fd91129d0f59d44a3fa779e616daea, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &6481334465714519688
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -74005,14 +74285,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &6486653286615416083
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -74194,14 +74475,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &6505450722406539283
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -74630,14 +74912,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &6615909993335000630
 Transform:
   m_ObjectHideFlags: 0
@@ -74775,14 +75058,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &6635819974081853112
 Transform:
   m_ObjectHideFlags: 0
@@ -75008,14 +75292,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &6684956103290011881
 Transform:
   m_ObjectHideFlags: 0
@@ -75214,14 +75499,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &6703084535227439756
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -75316,14 +75602,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &6706108340188879303
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -75410,14 +75697,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &6713675218877169285
 Transform:
   m_ObjectHideFlags: 0
@@ -75485,14 +75773,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &6716993985331214915
 GameObject:
   m_ObjectHideFlags: 0
@@ -75708,14 +75997,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &6742048071479874448
 Transform:
   m_ObjectHideFlags: 0
@@ -75956,14 +76246,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &6762820206749991129
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -76479,14 +76770,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &6833362465660973870
 Transform:
   m_ObjectHideFlags: 0
@@ -76547,14 +76839,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &6838762760824634485
 GameObject:
   m_ObjectHideFlags: 0
@@ -76659,14 +76952,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &6842916472373788606
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -76769,14 +77063,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &6848842333150484701
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -76879,14 +77174,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &6866728044585199676
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -76963,14 +77259,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &6875346459010209892
 GameObject:
   m_ObjectHideFlags: 0
@@ -77163,14 +77460,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &6908191087803147339
 GameObject:
   m_ObjectHideFlags: 0
@@ -77228,14 +77526,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &6908553345937096214
 GameObject:
   m_ObjectHideFlags: 0
@@ -77659,14 +77958,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &6965826553705417856
 Transform:
   m_ObjectHideFlags: 0
@@ -77779,14 +78079,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &6981124799148278159
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -77987,14 +78288,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &7004066005677577361
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -78096,14 +78398,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &7019485078723515612
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -78149,14 +78452,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &7037028769123181376
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -78448,14 +78752,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &7102228773306989702
 GameObject:
   m_ObjectHideFlags: 0
@@ -78936,14 +79241,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &7193019424111282897
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -79167,14 +79473,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &7222107670423444977
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -79367,14 +79674,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &7251183832172477552
 GameObject:
   m_ObjectHideFlags: 0
@@ -79546,14 +79854,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &7281246165472187817
 Transform:
   m_ObjectHideFlags: 0
@@ -79773,14 +80082,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &7297011804235774109
 Transform:
   m_ObjectHideFlags: 0
@@ -80109,14 +80419,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &7355353989180795994
 GameObject:
   m_ObjectHideFlags: 0
@@ -80277,14 +80588,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &7381516886025429881
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -80413,14 +80725,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &7402303591015346411
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -80482,14 +80795,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &7431973323308731214
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -80628,14 +80942,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &7447067841992254204
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -80990,14 +81305,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &7486352289247493627
 Transform:
   m_ObjectHideFlags: 0
@@ -81168,14 +81484,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &7507212452093628769
 GameObject:
   m_ObjectHideFlags: 0
@@ -81485,14 +81802,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!114 &7543420823615933162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81568,14 +81886,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &7546489869104495980
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -81718,14 +82037,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &7548013454238354201
 Transform:
   m_ObjectHideFlags: 0
@@ -81778,14 +82098,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &7548034677747074867
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -82012,14 +82333,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &7580159780534690192
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -82125,14 +82447,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &7585689721965276150
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -82270,14 +82593,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &7621710945501683548
 GameObject:
   m_ObjectHideFlags: 0
@@ -82356,14 +82680,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &7635404830307790546
 Transform:
   m_ObjectHideFlags: 0
@@ -82688,14 +83013,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &7672241150189026803
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -82741,14 +83067,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &7679035122422312423
 GameObject:
   m_ObjectHideFlags: 0
@@ -83001,14 +83328,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &7697197014611008379
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -83266,14 +83594,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &7736718609066115770
 GameObject:
   m_ObjectHideFlags: 0
@@ -83428,14 +83757,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!222 &7751714431788299443
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -83501,14 +83831,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!114 &7771471935640318895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83614,14 +83945,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &7784509870942822826
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -83922,14 +84254,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!222 &7841774859393395087
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -83990,14 +84323,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &7844769322453514062
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -84100,14 +84434,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &7850523475105771253
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -84342,14 +84677,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &7862038777423658834
 GameObject:
   m_ObjectHideFlags: 0
@@ -84711,22 +85047,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
---- !u!33 &7897418518320362345
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4023420986310854198}
-  m_Mesh: {fileID: 2133925460880760412, guid: 76c33ac23192bde4f86f2c6af5ecf3db, type: 3}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &7902497660018491996
 GameObject:
   m_ObjectHideFlags: 0
@@ -84917,14 +85246,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &7913120144641404085
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -85011,14 +85341,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &7916792811956302616
 Transform:
   m_ObjectHideFlags: 0
@@ -85171,14 +85502,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &7922390699017929925
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -85291,14 +85623,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &7928705877847713418
 Transform:
   m_ObjectHideFlags: 0
@@ -85594,14 +85927,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &7952242462298391718
 Transform:
   m_ObjectHideFlags: 0
@@ -85654,14 +85988,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &7952639027959085384
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -85748,14 +86083,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!114 &7959501211120800792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86171,14 +86507,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &8068755244473782285
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -86340,14 +86677,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &8089011625295064085
 Transform:
   m_ObjectHideFlags: 0
@@ -86420,14 +86758,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &8090463621453759038
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -86632,14 +86971,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &8111155107379938266
 GameObject:
   m_ObjectHideFlags: 0
@@ -86888,14 +87228,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &8152577748532154194
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -86990,14 +87331,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &8172282786694341862
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -87084,14 +87426,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &8176267497131859334
 GameObject:
   m_ObjectHideFlags: 0
@@ -87178,39 +87521,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!4 &8198220686170523491
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4023420986310854198}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 700532040}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
---- !u!114 &8198220686170523492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4023420986310854198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 3
-  outlineColor: {r: 0, g: 0, b: 0, a: 1}
-  outlineWidth: 8
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1 &8200101660891800805
 GameObject:
   m_ObjectHideFlags: 0
@@ -87268,14 +87578,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &8205304324077923171
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -87495,14 +87806,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &8221495183191951773
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -87687,14 +87999,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &8237880920019248707
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -87740,14 +88053,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &8247764528319019296
 Transform:
   m_ObjectHideFlags: 0
@@ -87879,14 +88193,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &8264484950342384117
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -87981,14 +88296,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &8277191850134514339
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -88034,14 +88350,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &8277458180271402209
 Transform:
   m_ObjectHideFlags: 0
@@ -88192,14 +88509,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &8298277774765648953
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -88286,14 +88604,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &8302919576608039869
 Transform:
   m_ObjectHideFlags: 0
@@ -88395,14 +88714,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &8319077489266009177
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -88500,14 +88820,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!224 &8328331516859252717
 RectTransform:
   m_ObjectHideFlags: 0
@@ -88638,14 +88959,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &8348477646561740466
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -88740,14 +89062,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &8359052314236673017
 GameObject:
   m_ObjectHideFlags: 0
@@ -88877,14 +89200,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &8391029069185329416
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -88958,14 +89282,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &8397030794605243954
 GameObject:
   m_ObjectHideFlags: 0
@@ -89196,14 +89521,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &8419478768627110019
 GameObject:
   m_ObjectHideFlags: 0
@@ -89694,14 +90020,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &8479144726617240975
 Transform:
   m_ObjectHideFlags: 0
@@ -89845,14 +90172,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &8492089269301759066
 GameObject:
   m_ObjectHideFlags: 0
@@ -89955,14 +90283,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &8514111790165472595
 Transform:
   m_ObjectHideFlags: 0
@@ -90030,14 +90359,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &8522501565902334260
 GameObject:
   m_ObjectHideFlags: 0
@@ -90391,14 +90721,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &8602843977343006458
 GameObject:
   m_ObjectHideFlags: 0
@@ -90576,14 +90907,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!222 &8626853568674234812
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -90649,14 +90981,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &8628503468554459029
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -90762,14 +91095,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &8637407202387224857
 Transform:
   m_ObjectHideFlags: 0
@@ -90852,14 +91186,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!224 &8654209442567745412
 RectTransform:
   m_ObjectHideFlags: 0
@@ -90925,14 +91260,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &8668238693411856446
 Transform:
   m_ObjectHideFlags: 0
@@ -91074,14 +91410,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &8692416860111280578
 GameObject:
   m_ObjectHideFlags: 0
@@ -91211,14 +91548,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &8708495434097197478
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -91331,14 +91669,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &8725565293488454262
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -91508,14 +91847,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &8731921757767964558
 Transform:
   m_ObjectHideFlags: 0
@@ -91568,14 +91908,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &8738551097698142631
 GameObject:
   m_ObjectHideFlags: 0
@@ -91633,14 +91974,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &8743884796178899937
 GameObject:
   m_ObjectHideFlags: 0
@@ -92009,14 +92351,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &8808617656011025532
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -92220,14 +92563,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &8821408928284915242
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -92430,14 +92774,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &8833208242077849570
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -92596,14 +92941,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &8860047181176011132
 GameObject:
   m_ObjectHideFlags: 0
@@ -92808,14 +93154,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &8878683447541274340
 Transform:
   m_ObjectHideFlags: 0
@@ -92970,14 +93317,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &8885723474095292023
 Transform:
   m_ObjectHideFlags: 0
@@ -93030,14 +93378,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &8890961662834442836
 Transform:
   m_ObjectHideFlags: 0
@@ -93090,14 +93439,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!224 &8891023845771695356
 RectTransform:
   m_ObjectHideFlags: 0
@@ -93236,14 +93586,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &8912433925303631542
 GameObject:
   m_ObjectHideFlags: 0
@@ -93315,14 +93666,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &8925029662858947500
 GameObject:
   m_ObjectHideFlags: 0
@@ -93684,14 +94036,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &8950350475520718534
 Transform:
   m_ObjectHideFlags: 0
@@ -93759,14 +94112,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &8951253153736732672
 GameObject:
   m_ObjectHideFlags: 0
@@ -93969,14 +94323,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!114 &8984382596511302745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94320,14 +94675,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &9027305699971138733
 Transform:
   m_ObjectHideFlags: 0
@@ -94400,14 +94756,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &9032903224162172954
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -94491,14 +94848,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!4 &9036654357496775881
 Transform:
   m_ObjectHideFlags: 0
@@ -94642,14 +95000,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &9068544682117489225
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -94736,14 +95095,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &9070076042358296639
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -94812,14 +95172,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!224 &9084391280032552375
 RectTransform:
   m_ObjectHideFlags: 0
@@ -94892,14 +95253,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &9088545579138996149
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -94965,14 +95327,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &9095301527032935698
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -95018,14 +95381,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &9096672450615349935
 GameObject:
   m_ObjectHideFlags: 0
@@ -95337,14 +95701,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!1 &9120887499272294251
 GameObject:
   m_ObjectHideFlags: 0
@@ -95438,14 +95803,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &9136701757998284052
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -95603,14 +95969,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &9150533617465009240
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -95971,14 +96338,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &9177361131714675093
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -96065,14 +96433,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &9178580787778057982
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -96175,14 +96544,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!23 &9185178464665069735
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -96478,14 +96848,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &9212639649559510978
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -96531,14 +96902,15 @@ MonoBehaviour:
   maxDeliveryDuration: 20
   minTip: 10
   maxTip: 50
+  timed: 1
   areaPrefab: {fileID: 4350355649357478817, guid: 3082685b981adcf47b7f6313e3c5a2e3, type: 3}
   pulseSpeed: 2
   pulseAmount: 0.003
   spinSpeed: 30
   areaScale: 0.0018
-  indicatorPrefab: {fileID: 0}
+  indicatorPrefab: {fileID: 3501023846302511723, guid: 66962c530428e044f8f2685acd9d2486, type: 3}
   warningThreshold: 10
-  warningSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 30c18869aac06fb48b35cab903e1d8dc, type: 3}
 --- !u!33 &9215281574558700633
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -96626,10 +96998,10 @@ SceneRoots:
   - {fileID: 235131401}
   - {fileID: 330585546}
   - {fileID: 1482786066}
-  - {fileID: 700532040}
   - {fileID: 4328978918836358220}
   - {fileID: 453178857}
   - {fileID: 2055428093}
   - {fileID: 1136174310}
   - {fileID: 8561517197209158852}
+  - {fileID: 1780995584}
   - {fileID: 6171051702812108495}

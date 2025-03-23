@@ -24,8 +24,8 @@ public class ArrowPointer : MonoBehaviour
     private bool isTargetVisible;
     private float oscillationTimer;
 
-    void Start()
-    {
+    void Start() {
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
         if (!mainCamera) mainCamera = Camera.main;
     }
 

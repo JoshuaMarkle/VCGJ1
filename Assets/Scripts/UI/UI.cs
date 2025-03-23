@@ -23,6 +23,7 @@ public class UI : MonoBehaviour
 	public TMP_Text pizzaText;
 	public TMP_Text policeStarsText;
 	public Slider hungerSlider;
+	public GameObject eatIndicator;
 
 	[Header("Game Over")]
 	public TMP_Text gameOverSubtitle;
@@ -75,6 +76,7 @@ public class UI : MonoBehaviour
 		if (gameOverMenu != null) gameOverMenu.SetActive(false);
 
 		UpdateHUD();
+		HideEatIndicator();
 	}
 
 
@@ -230,5 +232,13 @@ public class UI : MonoBehaviour
 		pausable = false;
 		if (gameOverMenu != null) gameOverMenu.SetActive(true);
 		gameOverSubtitle.text = subtitle;
+	}
+
+	public void ShowEatIndicator() {
+		eatIndicator.SetActive(true);
+	}
+
+	public void HideEatIndicator() {
+		eatIndicator.SetActive(false);
 	}
 }

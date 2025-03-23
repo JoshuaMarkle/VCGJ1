@@ -7,6 +7,7 @@ public class Indicator : MonoBehaviour
 	public Transform target;
 	public float screenPaddingX = 50f;
 	public float screenPaddingY = 100f;
+	public AudioClip spawnIn;
 
 	private RectTransform indicatorRect;
 	private Camera mainCamera;
@@ -20,6 +21,8 @@ public class Indicator : MonoBehaviour
 			mainCamera = Camera.main;
 		indicatorRect = GetComponent<RectTransform>();
 		indicatorText = GetComponent<TMP_Text>();
+
+		MusicManager.Instance.PlaySFX(spawnIn);
 	}
 
 	private void Update()
