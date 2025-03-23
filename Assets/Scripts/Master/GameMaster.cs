@@ -178,6 +178,10 @@ public class GameMaster : MonoBehaviour
 
         if (hunger < 0f)
         {
+			if (pizzasInCar > 0) {
+				EatPizza();
+				return;
+			}
             alive = false;
             MusicManager.Instance.PlaySFX(diedSound);
             UI.Instance?.ShowGameOverScreen("Died of Hunger");
