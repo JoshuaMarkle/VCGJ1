@@ -463,11 +463,11 @@ MonoBehaviour:
   player: {fileID: 0}
   predictionTime: 1
   reverseDistance: 8
-  catchDistance: 3
+  catchDistance: 7
   catchTime: 2
   minPlayerCatchSpeed: 30
-  moveSpeed: 15000
-  maxSpeed: 250
+  moveSpeed: 30000
+  maxSpeed: 400
   maxSteerAngle: 30
   brakeForce: 100000
   centerOfMass: {fileID: 7283391826550654819}
@@ -681,7 +681,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 1
     m_AsymptoteValue: 1
-    m_Stiffness: 5
+    m_Stiffness: 6
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -984,7 +984,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 1
     m_AsymptoteValue: 1
-    m_Stiffness: 5
+    m_Stiffness: 6
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1139,7 +1139,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 1
     m_AsymptoteValue: 1
-    m_Stiffness: 5
+    m_Stiffness: 6
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1232,7 +1232,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 1
     m_AsymptoteValue: 1
-    m_Stiffness: 5
+    m_Stiffness: 6
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

@@ -150,6 +150,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  screenPaddingX: 75
-  screenPaddingY: 50
+  screenPaddingX: 100
+  screenPaddingY: 75
   spawnIn: {fileID: 8300000, guid: bc530b785af29db4484e6b6913b5e9af, type: 3}

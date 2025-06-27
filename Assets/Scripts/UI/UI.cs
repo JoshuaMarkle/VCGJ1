@@ -122,7 +122,7 @@ public class UI : MonoBehaviour
 	{
 		if (mainMenu != null) mainMenu.SetActive(false);
 		if (pauseMenu != null) pauseMenu.SetActive(false);
-		if (pauseMenu != null) pauseMenu.SetActive(false);
+		if (gameOverMenu != null) gameOverMenu.SetActive(false);
 		if (optionsMenu != null) optionsMenu.SetActive(true);
 	}
 
@@ -161,6 +161,9 @@ public class UI : MonoBehaviour
 	{
 		if (panel == null || panelGroup == null) yield break;
 
+        Time.timeScale = 1;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
 		float timer = 0f;
 		panel.SetActive(true);
 		while (timer < fadeTime)
@@ -176,6 +179,9 @@ public class UI : MonoBehaviour
 	public IEnumerator FadeOut()
 	{
 		if (panel == null || panelGroup == null) yield break;
+
+        Time.timeScale = 1;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
 		panel.SetActive(true);
 		float timer = 0f;
@@ -219,6 +225,8 @@ public class UI : MonoBehaviour
 
 	public void LoadScene(string sceneName)
 	{
+        Time.timeScale = 1;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
 		StartCoroutine(FadeOutAndLoadScene(sceneName));
 	}
 
